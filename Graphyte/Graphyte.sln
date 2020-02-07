@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29509.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Graphyte", "Graphyte.csproj", "{1DC09470-D446-4DD6-812B-5ECDFDDBEFC9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Graphyte", "Graphyte.csproj", "{1DC09470-D446-4DD6-812B-5ECDFDDBEFC9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphyteTests", "..\GraphyteTests\GraphyteTests.csproj", "{5E60529F-3468-493A-A52D-44696FC204BE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{1DC09470-D446-4DD6-812B-5ECDFDDBEFC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1DC09470-D446-4DD6-812B-5ECDFDDBEFC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1DC09470-D446-4DD6-812B-5ECDFDDBEFC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E60529F-3468-493A-A52D-44696FC204BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E60529F-3468-493A-A52D-44696FC204BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E60529F-3468-493A-A52D-44696FC204BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E60529F-3468-493A-A52D-44696FC204BE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
