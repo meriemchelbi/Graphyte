@@ -1,16 +1,15 @@
 using Graphyte;
 using System;
 using Xunit;
+using FluentAssertions;
 
 namespace GraphyteTests
 {
     public class UniversalOrbit
     {
         [Fact]
-        public void IceBreaker()
+        public void CountTotalChildBranches_Calculates_DirectAndIndirectRelationships()
         {
-            var galaxy = new Graph<string>();
-
             var BodyB = new Node<string>("BAA");
             var BodyC = new Node<string>("CBB");
             var BodyD = new Node<string>("DCC");
@@ -24,6 +23,8 @@ namespace GraphyteTests
             var BodyL = new Node<string>("LKK");
             var COM = new Node<string>("COM");
 
+            var galaxy = new Tree<string>(COM);
+                        
             BodyB.Neighbours.Add(BodyC);
             BodyB.Neighbours.Add(BodyG);
             BodyC.Neighbours.Add(BodyD);
@@ -38,16 +39,19 @@ namespace GraphyteTests
 
             galaxy.AddNodes(BodyB, BodyC, BodyD, BodyE, BodyF, BodyG, BodyH, BodyI, BodyJ, BodyK, BodyL, COM);
 
-            CalculateTotalOrbits(COM);
+            var result = CountTotalChildBranches(COM);
+
+            result.Should().Be(42);
         }
-        public int CalculateTotalOrbits(Node<string> origin, Node<string> destination, int depth = 0)
+
+        public int CountTotalChildBranches(Node<string> origin, int depth = 0)
         {
             var totalOrbit = origin.Neighbours.Count + depth;
             depth += 1;
 
             foreach (var neighbour in origin.Neighbours)
             {
-                totalOrbit += CalculateTotalOrbits(neighbour, depth) - 1;
+                totalOrbit += CountTotalChildBranches(neighbour, depth) - 1;
             }
 
             return totalOrbit;
