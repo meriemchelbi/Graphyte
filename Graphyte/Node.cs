@@ -5,12 +5,12 @@ namespace Graphyte
 {
     public class Node<T>
     {
-        private readonly T _value;
+        public readonly T Value;
         public List<Node<T>> Neighbours { get; }
 
         public Node(T value)
         {
-            _value = value;
+            Value = value;
             Neighbours = new List<Node<T>>();
         }
 
