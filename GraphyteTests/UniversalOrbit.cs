@@ -2,6 +2,8 @@ using Graphyte;
 using System;
 using Xunit;
 using FluentAssertions;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace GraphyteTests
 {
@@ -55,6 +57,37 @@ namespace GraphyteTests
             }
 
             return totalOrbit;
+        }
+
+        [Fact]
+        public void CountShortestDistance_Returns_ShortestNumberOfLeaps()
+        {
+            var BodyD = new Node<string>("DCC");
+            var BodyE = new Node<string>("EDD");
+            var BodyF = new Node<string>("FEE");
+            var BodyI = new Node<string>("IHH");
+            var BodyJ = new Node<string>("JII");
+            var BodyK = new Node<string>("KJJ");
+            var BodyL = new Node<string>("LKK");
+            var SAN = new Node<string>("SAN");
+            var YOU = new Node<string>("YOU");
+
+            var galaxy = new Tree<string>(BodyD);
+
+            BodyD.Neighbours.Add(BodyE);
+            BodyD.Neighbours.Add(BodyI);
+            BodyE.Neighbours.Add(BodyF);
+            BodyE.Neighbours.Add(BodyJ);
+            BodyJ.Neighbours.Add(BodyK);
+            BodyK.Neighbours.Add(BodyL);
+            BodyK.Neighbours.Add(YOU);
+            BodyI.Neighbours.Add(SAN);
+
+            galaxy.AddNodes(BodyD, BodyE, BodyF, BodyI, BodyJ, BodyK, BodyL, YOU, SAN);
+
+            var result = galaxy.CountShortestDistance(YOU,SAN);
+
+            result.Should().Be(4);
         }
     }
 }

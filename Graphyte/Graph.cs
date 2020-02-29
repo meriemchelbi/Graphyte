@@ -26,5 +26,31 @@ namespace Graphyte
         {
             return _nodes.Where(n => n.Value.Equals(value)).First();
         }
+
+        public int CountShortestDistance(Node<T> origin, Node<T> destination)
+        {
+
+            var originParents = new List<Node<T>>();
+            var destinationParents = new List<Node<T>>();
+            FindNodeParents(origin, ref originParents);
+            FindNodeParents(destination, ref destinationParents);
+            var mutualParent = originParents.Intersect(destinationParents).FirstOrDefault();
+            var result = originParents.IndexOf(mutualParent) + destinationParents.IndexOf(mutualParent);
+            return result;
+        }
+
+        private List<Node<T>> FindNodeParents(Node<T> child, ref List<Node<T>> result)
+        {
+            foreach (var node in _nodes)
+            {
+                if (node.Neighbours.Contains(child))
+                {
+                    result.Add(node);
+                    FindNodeParents(node, ref result);
+                }
+            }
+
+            return result;
+        }
     }
 }
