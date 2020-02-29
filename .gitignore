@@ -450,3 +450,8 @@ MigrationBackup/
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
 *.cache
+Graphyte/.vs/Graphyte/v16/Server/sqlite3/storage.ide-shm
+Graphyte/.vs/Graphyte/v16/Server/sqlite3/storage.ide-wal
+Graphyte/.vs/Graphyte/v16/Server/sqlite3/storage.ide-shm
+*.ide-shm
+*.ide-wal
