@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Graphyte
 {
@@ -21,6 +20,11 @@ namespace Graphyte
         public void AddNodes(params Node<T>[] nodes)
         {
             _nodes.AddRange(nodes);
+        }
+
+        public Node<T> FindNode(T value)
+        {
+            return _nodes.Where(n => n.Value.Equals(value)).First();
         }
     }
 }
