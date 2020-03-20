@@ -32,21 +32,24 @@ namespace Graphyte
 
             var originParents = new List<Node<T>>();
             var destinationParents = new List<Node<T>>();
-            FindNodeParents(origin, ref originParents);
-            FindNodeParents(destination, ref destinationParents);
+
+            FindNodeParents(origin, originParents);
+            FindNodeParents(destination, destinationParents);
+
             var mutualParent = originParents.Intersect(destinationParents).FirstOrDefault();
             var result = originParents.IndexOf(mutualParent) + destinationParents.IndexOf(mutualParent);
+
             return result;
         }
 
-        private List<Node<T>> FindNodeParents(Node<T> child, ref List<Node<T>> result)
+        private List<Node<T>> FindNodeParents(Node<T> child, List<Node<T>> result)
         {
             foreach (var node in _nodes)
             {
                 if (node.Neighbours.Contains(child))
                 {
                     result.Add(node);
-                    FindNodeParents(node, ref result);
+                    FindNodeParents(node, result);
                 }
             }
 
