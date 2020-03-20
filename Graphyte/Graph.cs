@@ -27,6 +27,7 @@ namespace Graphyte
             return _nodes.Where(n => n.Value.Equals(value)).First();
         }
 
+        // TODO: try implementing without having to traverse the entire tree to the root.
         public int CountShortestDistance(Node<T> origin, Node<T> destination)
         {
 
