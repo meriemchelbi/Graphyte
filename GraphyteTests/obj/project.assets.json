@@ -6728,23 +6728,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\merie\\.nuget\\packages\\": {},
+    "C:\\Users\\meriemc\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\merie\\Documents\\GitHub\\Graphyte\\GraphyteTests\\GraphyteTests.csproj",
+      "projectUniqueName": "C:\\Users\\meriemc\\Documents\\GitHub\\Graphyte\\GraphyteTests\\GraphyteTests.csproj",
       "projectName": "GraphyteTests",
-      "projectPath": "C:\\Users\\merie\\Documents\\GitHub\\Graphyte\\GraphyteTests\\GraphyteTests.csproj",
-      "packagesPath": "C:\\Users\\merie\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\merie\\Documents\\GitHub\\Graphyte\\GraphyteTests\\obj\\",
+      "projectPath": "C:\\Users\\meriemc\\Documents\\GitHub\\Graphyte\\GraphyteTests\\GraphyteTests.csproj",
+      "packagesPath": "C:\\Users\\meriemc\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\meriemc\\Documents\\GitHub\\Graphyte\\GraphyteTests\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\merie\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\meriemc\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -6757,8 +6757,8 @@
       "frameworks": {
         "netcoreapp3.0": {
           "projectReferences": {
-            "C:\\Users\\merie\\Documents\\GitHub\\Graphyte\\Graphyte\\Graphyte.csproj": {
-              "projectPath": "C:\\Users\\merie\\Documents\\GitHub\\Graphyte\\Graphyte\\Graphyte.csproj"
+            "C:\\Users\\meriemc\\Documents\\GitHub\\Graphyte\\Graphyte\\Graphyte.csproj": {
+              "projectPath": "C:\\Users\\meriemc\\Documents\\GitHub\\Graphyte\\Graphyte\\Graphyte.csproj"
             }
           }
         }
@@ -6803,12 +6803,26 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[3.0.1, 3.0.1]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[3.0.0, 3.0.0]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Ref",
+            "version": "[3.0.0, 3.0.0]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.200-preview-015002\\RuntimeIdentifierGraph.json"
       }
     }
   }
