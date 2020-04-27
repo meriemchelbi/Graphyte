@@ -29,14 +29,15 @@ namespace Graphyte
 
         public int CountShortestDistance(Node<T> origin, Node<T> destination)
         {
-
             var originParents = new List<Node<T>>();
             var destinationParents = new List<Node<T>>();
+
             FindNodeParents(origin, ref originParents);
             FindNodeParents(destination, ref destinationParents);
+
             var mutualParent = originParents.Intersect(destinationParents).FirstOrDefault();
-            var result = originParents.IndexOf(mutualParent) + destinationParents.IndexOf(mutualParent);
-            return result;
+
+            return originParents.IndexOf(mutualParent) + destinationParents.IndexOf(mutualParent);
         }
 
         private List<Node<T>> FindNodeParents(Node<T> child, ref List<Node<T>> result)
