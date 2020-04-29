@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\merie\\Documents\\GitHub\\Graphyte\\Graphyte\\Graphyte.csproj": {}
+    "C:\\Users\\meriemc\\Documents\\GitHub\\Graphyte\\Graphyte\\Graphyte.csproj": {}
   },
   "projects": {
-    "C:\\Users\\merie\\Documents\\GitHub\\Graphyte\\Graphyte\\Graphyte.csproj": {
+    "C:\\Users\\meriemc\\Documents\\GitHub\\Graphyte\\Graphyte\\Graphyte.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\merie\\Documents\\GitHub\\Graphyte\\Graphyte\\Graphyte.csproj",
+        "projectUniqueName": "C:\\Users\\meriemc\\Documents\\GitHub\\Graphyte\\Graphyte\\Graphyte.csproj",
         "projectName": "Graphyte",
-        "projectPath": "C:\\Users\\merie\\Documents\\GitHub\\Graphyte\\Graphyte\\Graphyte.csproj",
-        "packagesPath": "C:\\Users\\merie\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\merie\\Documents\\GitHub\\Graphyte\\Graphyte\\obj\\",
+        "projectPath": "C:\\Users\\meriemc\\Documents\\GitHub\\Graphyte\\Graphyte\\Graphyte.csproj",
+        "packagesPath": "C:\\Users\\meriemc\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\meriemc\\Documents\\GitHub\\Graphyte\\Graphyte\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\merie\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\meriemc\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -46,6 +46,16 @@
               "target": "Package",
               "version": "[2.0.3, )",
               "autoReferenced": true
+            },
+            "xunit": {
+              "target": "Package",
+              "version": "[2.4.1, )"
+            },
+            "xunit.runner.visualstudio": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.4.1, )"
             }
           },
           "imports": [
@@ -58,7 +68,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.200-preview-015002\\RuntimeIdentifierGraph.json"
         }
       }
     }
