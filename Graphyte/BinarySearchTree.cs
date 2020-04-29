@@ -15,20 +15,16 @@ namespace Graphyte
 
         public void InsertByValue(int value)
         {
-            if (Root is null)
-            {
-                throw new NullReferenceException("This tree doesn't seem to have a root!");
-            }
-
             TryInsert(value, Root);
         }
 
         private void TryInsert(int value, BinaryTreeNode node)
         {
+            if (node is null)
+                throw new NullReferenceException("Node is null!");
+
             if (value == node.Value)
-            {
                 throw new Exception("There is already a node with this value in the tree. Go climb some other tree");
-            }
 
             if (value < node.Value)
             {
@@ -39,9 +35,7 @@ namespace Graphyte
                     return;
                 }
                 else
-                {
                     TryInsert(value, node.LeftChild);
-                }
             }
 
             if (value > node.Value)
@@ -53,9 +47,7 @@ namespace Graphyte
                     return;
                 }
                 else
-                {
                     TryInsert(value, node.RightChild);
-                }
             }
         }
 

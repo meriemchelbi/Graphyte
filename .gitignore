@@ -267,3 +267,7 @@ build/tools
 **/Logs/**/*
 test/**/Properties/launchSettings.json
 .vscode/**
+Graphyte/.vs/Graphyte/v16/.suo
+*.cache
+Graphyte/obj/Debug/netstandard2.0/Graphyte.csprojAssemblyReference.cache
+GraphyteTests/obj/Debug/netcoreapp3.0/GraphyteTests.csprojAssemblyReference.cache
