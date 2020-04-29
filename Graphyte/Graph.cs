@@ -5,7 +5,13 @@ namespace Graphyte
 {
     public class Graph<T>
     {
-        private readonly List<Node<T>> _nodes;
+        public List<Node<T>> Nodes
+        {
+            get { return _nodes; }
+            private set { }
+        }
+
+        protected readonly List<Node<T>> _nodes;
 
         public Graph()
         {
