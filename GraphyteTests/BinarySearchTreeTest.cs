@@ -127,7 +127,7 @@ namespace GraphyteTests
 
             var result = tree.FindLargest();
 
-            result.Should().Be(node4);
+            result.Should().Be(node20);
         }
     }
 }

@@ -74,14 +74,32 @@ namespace Graphyte
             else return null;
         }
 
-        public Node<int> FindSmallest()
+        public BinaryTreeNode FindSmallest()
         {
-            return new Node<int>(0);
+            return TryGetLeftChild(Root);
         }
 
-        public Node<int> FindLargest()
+        private BinaryTreeNode TryGetLeftChild(BinaryTreeNode node)
         {
-            return new Node<int>(0);
+            if (node is null)
+                throw new NullReferenceException("Node is null!");
+            if (node.LeftChild is null)
+                return node;
+            else return TryGetLeftChild(node.LeftChild);
+        }
+
+        public BinaryTreeNode FindLargest()
+        {
+            return TryGetRightChild(Root);
+        }
+
+        private BinaryTreeNode TryGetRightChild(BinaryTreeNode node)
+        {
+            if (node is null)
+                throw new NullReferenceException("Node is null!");
+            if (node.RightChild is null)
+                return node;
+            else return TryGetRightChild(node.RightChild);
         }
     }
 }
