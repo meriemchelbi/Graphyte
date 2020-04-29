@@ -11,7 +11,7 @@ namespace Graphyte
             private set { }
         }
 
-        protected readonly List<Node<T>> _nodes;
+        protected List<Node<T>> _nodes;
 
         public Graph()
         {

@@ -8,9 +8,10 @@ namespace Graphyte
     {
         public Node<T> Root { get; }
 
-        public Tree(Node<T> root)
+        public Tree(Node<T> root) : base()
         {
             Root = root;
+            _nodes = new List<Node<T>> { root };
         }
     }
 }

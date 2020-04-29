@@ -4,12 +4,12 @@ using System.Text;
 
 namespace Graphyte
 {
-    public class BinaryTreeNode<T> : Node<T>
+    public class BinaryTreeNode : Node<int>
     {
-        public Node<T> LeftChild { get; set; }
-        public Node<T> RightChild { get; set; }
+        public BinaryTreeNode LeftChild { get; set; }
+        public BinaryTreeNode RightChild { get; set; }
 
-        public BinaryTreeNode(T value) : base(value)
+        public BinaryTreeNode(int value) : base(value)
         {
         }
     }
