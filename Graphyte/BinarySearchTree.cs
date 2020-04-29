@@ -58,7 +58,20 @@ namespace Graphyte
 
         public Node<int> FindByValue(int value)
         {
-            return new Node<int>(value);
+            return TryMatch(value, Root);
+        }
+
+        private BinaryTreeNode TryMatch(int value, BinaryTreeNode node)
+        {
+            if (node is null)
+                throw new NullReferenceException("Node is null!");
+            if (value == node.Value)
+                return node;
+            if (value < node.Value)
+                return TryMatch(value, node.LeftChild);
+            if (value > node.Value)
+                return TryMatch(value, node.RightChild);
+            else return null;
         }
 
         public Node<int> FindSmallest()

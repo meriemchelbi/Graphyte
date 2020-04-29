@@ -60,22 +60,74 @@ namespace GraphyteTests
             throw new NotImplementedException();
         }
 
+        // TODO implement a find by value that uses Linq to traverse the _nodes list and benchmark vs this one
         [Fact]
         public void FindByValueReturnsCorrectNode()
         {
-            throw new NotImplementedException();
+            var root = new BinaryTreeNode(7);
+            var node4 = new BinaryTreeNode(4);
+            var node5 = new BinaryTreeNode(5);
+            var node8 = new BinaryTreeNode(8);
+            var node15 = new BinaryTreeNode(15);
+            var node20 = new BinaryTreeNode(20);
+
+            root.LeftChild = node4;
+            root.RightChild = node15;
+            node15.LeftChild = node8;
+            node4.RightChild = node5;
+            node15.RightChild = node20;
+
+            var tree = new BinarySearchTree(root);
+
+            var result = tree.FindByValue(15);
+
+            result.Should().Be(node15);
         }
 
         [Fact]
         public void FindSmallestReturnsNodeWithSmallestValue()
         {
-            throw new NotImplementedException();
+            var root = new BinaryTreeNode(7);
+            var node4 = new BinaryTreeNode(4);
+            var node5 = new BinaryTreeNode(5);
+            var node8 = new BinaryTreeNode(8);
+            var node15 = new BinaryTreeNode(15);
+            var node20 = new BinaryTreeNode(20);
+
+            root.LeftChild = node4;
+            root.RightChild = node15;
+            node15.LeftChild = node8;
+            node4.RightChild = node5;
+            node15.RightChild = node20;
+
+            var tree = new BinarySearchTree(root);
+
+            var result = tree.FindSmallest();
+
+            result.Should().Be(node4);
         }
 
         [Fact]
         public void FindLargestReturnsNodeWithLargestValue()
         {
-            throw new NotImplementedException();
+            var root = new BinaryTreeNode(7);
+            var node4 = new BinaryTreeNode(4);
+            var node5 = new BinaryTreeNode(5);
+            var node8 = new BinaryTreeNode(8);
+            var node15 = new BinaryTreeNode(15);
+            var node20 = new BinaryTreeNode(20);
+
+            root.LeftChild = node4;
+            root.RightChild = node15;
+            node15.LeftChild = node8;
+            node4.RightChild = node5;
+            node15.RightChild = node20;
+
+            var tree = new BinarySearchTree(root);
+
+            var result = tree.FindLargest();
+
+            result.Should().Be(node4);
         }
     }
 }
