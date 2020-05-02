@@ -18,6 +18,32 @@ namespace Graphyte
             TryInsert(value, Root);
         }
 
+        
+
+        public void DeleteByValue(int value)
+        {
+            var toBeDeleted = FindByValue(value);
+
+            // Case 1: if toBeDeleted has no right child replace with leftChild
+            // Case 2: if toBeDeleted right child has no left child replace with dn rightChild
+            // Case 2: if toBeDeleted right child has left child replace with dn rightChild's leftmost descendant
+        }
+
+        public Node<int> FindByValue(int value)
+        {
+            return TryMatch(value, Root);
+        }
+
+        public BinaryTreeNode FindSmallest()
+        {
+            return TryGetLeftChild(Root);
+        }
+
+        public BinaryTreeNode FindLargest()
+        {
+            return TryGetRightChild(Root);
+        }
+
         private void TryInsert(int value, BinaryTreeNode node)
         {
             if (node is null)
@@ -51,16 +77,6 @@ namespace Graphyte
             }
         }
 
-        public void DeleteByValue(int value)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Node<int> FindByValue(int value)
-        {
-            return TryMatch(value, Root);
-        }
-
         private BinaryTreeNode TryMatch(int value, BinaryTreeNode node)
         {
             if (node is null)
@@ -74,11 +90,6 @@ namespace Graphyte
             else return null;
         }
 
-        public BinaryTreeNode FindSmallest()
-        {
-            return TryGetLeftChild(Root);
-        }
-
         private BinaryTreeNode TryGetLeftChild(BinaryTreeNode node)
         {
             if (node is null)
@@ -86,11 +97,6 @@ namespace Graphyte
             if (node.LeftChild is null)
                 return node;
             else return TryGetLeftChild(node.LeftChild);
-        }
-
-        public BinaryTreeNode FindLargest()
-        {
-            return TryGetRightChild(Root);
         }
 
         private BinaryTreeNode TryGetRightChild(BinaryTreeNode node)

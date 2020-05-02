@@ -271,3 +271,10 @@ Graphyte/.vs/Graphyte/v16/.suo
 *.cache
 Graphyte/obj/Debug/netstandard2.0/Graphyte.csprojAssemblyReference.cache
 GraphyteTests/obj/Debug/netcoreapp3.0/GraphyteTests.csprojAssemblyReference.cache
+*.props
+*.cache
+*.json
+Graphyte/obj/Graphyte.csproj.nuget.cache
+Graphyte/obj/Graphyte.csproj.nuget.dgspec.json
+Graphyte/obj/Graphyte.csproj.nuget.g.props
+Graphyte/obj/project.assets.json
