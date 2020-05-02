@@ -25,11 +25,16 @@ namespace Graphyte
             var toBeDeleted = FindByValue(value);
 
             // Case 1: if toBeDeleted has no right child replace with leftChild
+            if (toBeDeleted.RightChild is null)
+            {
+                _nodes.Remove(toBeDeleted);
+                // how do I replace the parent
+            }
             // Case 2: if toBeDeleted right child has no left child replace with dn rightChild
             // Case 2: if toBeDeleted right child has left child replace with dn rightChild's leftmost descendant
         }
 
-        public Node<int> FindByValue(int value)
+        public BinaryTreeNode FindByValue(int value)
         {
             return TryMatch(value, Root);
         }
