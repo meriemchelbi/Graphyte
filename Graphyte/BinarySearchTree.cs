@@ -18,46 +18,24 @@ namespace Graphyte
             TryInsert(value, Root);
         }
 
-        public bool DeleteByValue(int value)
+        public void DeleteByValue(int value)
         {
-            var current = Root;
             BinaryTreeNode parent = null;
 
-            var result = Compare(value, current);
-
-            while (result != 0)
-            {
-                if (result > 0) // value is bigger than current node > search right subtree
-                {
-                    parent = current;
-                    current = current.RightChild;
-                }
-                else if (result < 0) // value is smaller than current node > search right subtree
-                {
-                    parent = current;
-                    current = current.LeftChild;
-                }
-                
-                if (current is null)
-                {
-                    return false;
-                }
-                else
-                    result = Compare(value, current);
-            }
-
-            var childPosition = Compare(current.Value, parent);
+            var toRemove = FindNodeAndParent(value, Root, ref parent);
+            
+            var position = Compare(toRemove.Value, parent);
 
             // Case 1: if toRemove has no right child replace with leftChild
-            if (current.RightChild is null)
+            if (toRemove.RightChild is null)
             {
-                if (childPosition < 0) // if current smaller than parent
+                if (position < 0)
                 {
-                    parent.LeftChild = current.LeftChild; // replace parent left child with left child of the node you want to remove;
+                    parent.LeftChild = toRemove.LeftChild; // replace parent left child with left child of the node you want to remove;
                 }
-                else if (childPosition > 0)
+                else if (position > 0)
                 {
-                    parent.RightChild = current.LeftChild; // replace parent right child with left child of the node you want to remove;
+                    parent.RightChild = toRemove.LeftChild; // replace parent right child with left child of the node you want to remove;
                 }
                 else
                 {
@@ -65,17 +43,15 @@ namespace Graphyte
                 }
             }
 
-            _nodes.Remove(current);
-            return true;
-
             // Case 2: if toRemove right child has no left child replace with dn rightChild
             // Case 3: if toRemove right child has left child replace with dn rightChild's leftmost descendant
+
+            _nodes.Remove(toRemove);
         }
 
-        public BinaryTreeNode FindByValue(int value)
+        public BinaryTreeNode FindByValueRecursive(int value)
         {
-            var parent = Root;
-            return TryMatch(value, ref parent);
+            return TryMatchRecursive(value, Root);
         }
 
         public BinaryTreeNode FindSmallest()
@@ -121,23 +97,23 @@ namespace Graphyte
             }
         }
 
-        private BinaryTreeNode TryMatch(int value, ref BinaryTreeNode parent)
+        private BinaryTreeNode TryMatchRecursive(int value, BinaryTreeNode node)
         {
-            if (parent is null)
+            if (node is null)
                 throw new NullReferenceException("Node is null!");
-            if (value == parent.Value)
+            if (value == node.Value)
             {
-                return parent;
+                return node;
             }
-            if (value < parent.Value)
+            if (value < node.Value)
             {
-                parent = parent.LeftChild;
-                return TryMatch(value, ref parent);
+                node = node.LeftChild;
+                return TryMatchRecursive(value, node);
             }
-            if (value > parent.Value)
+            if (value > node.Value)
             {
-                parent = parent.RightChild;
-                return TryMatch(value, ref parent);
+                node = node.RightChild;
+                return TryMatchRecursive(value, node);
             }
             else
             {
@@ -163,14 +139,34 @@ namespace Graphyte
             else return TryGetRightChild(node.RightChild);
         }
 
+        private BinaryTreeNode FindNodeAndParent(int value, BinaryTreeNode current, ref BinaryTreeNode parent)
+        {
+            var comparison = Compare(value, current);
+
+            while (comparison != 0)
+            {
+                if (comparison > 0) // value is bigger than current node search right subtree
+                {
+                    parent = current;
+                    current = current.RightChild;
+                }
+                else if (comparison < 0) // value is smaller than current node search left subtree
+                {
+                    parent = current;
+                    current = current.LeftChild;
+                }
+
+                if (current is null)
+                    return current;
+                else comparison = Compare(value, current);
+            }
+
+            return current;
+        }
+
         private int Compare(int value, BinaryTreeNode node)
         {
             return value - node.Value;
-        }
-
-        private bool Equals(BinaryTreeNode node1, BinaryTreeNode node2)
-        {
-            return node1.Value == node2.Value;
         }
     }
 }

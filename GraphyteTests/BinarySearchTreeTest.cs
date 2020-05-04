@@ -75,7 +75,7 @@ namespace GraphyteTests
 
             var tree = ConstructBaseTestTree();
             tree.InsertByValue(18);
-            var parentNode = tree.FindByValue(15);
+            var parentNode = tree.FindByValueRecursive(15);
 
             tree.DeleteByValue(20);
 
@@ -92,7 +92,7 @@ namespace GraphyteTests
             };
 
             var tree = ConstructBaseTestTree();
-            var parentNode = tree.FindByValue(20);
+            var parentNode = tree.FindByValueRecursive(20);
 
             tree.DeleteByValue(15);
 
@@ -118,7 +118,7 @@ namespace GraphyteTests
             var tree = ConstructBaseTestTree();
             tree.InsertByValue(18);
             tree.InsertByValue(16);
-            var parentNode = tree.FindByValue(16);
+            var parentNode = tree.FindByValueRecursive(16);
 
             tree.DeleteByValue(15);
 
@@ -133,7 +133,7 @@ namespace GraphyteTests
         {
             var tree = new BinarySearchTree(_root);
 
-            var result = tree.FindByValue(15);
+            var result = tree.FindByValueRecursive(15);
 
             result.Should().Be(_node15);
         }
