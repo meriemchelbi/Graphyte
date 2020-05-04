@@ -75,11 +75,12 @@ namespace GraphyteTests
 
             var tree = ConstructBaseTestTree();
             tree.InsertByValue(18);
+            var parentNode = tree.FindByValue(15);
 
             tree.DeleteByValue(20);
 
             tree.Nodes.Should().BeEquivalentTo(expectedNodes);
-            _node15.RightChild.Value.Should().Be(18);
+            parentNode.RightChild.Value.Should().Be(18);
         }
 
         [Fact]
@@ -91,12 +92,13 @@ namespace GraphyteTests
             };
 
             var tree = ConstructBaseTestTree();
-            
+            var parentNode = tree.FindByValue(20);
+
             tree.DeleteByValue(15);
 
             tree.Nodes.Should().BeEquivalentTo(expectedNodes);
             _root.RightChild.Value.Should().Be(20);
-            _node20.LeftChild.Value.Should().Be(8);
+            parentNode.LeftChild.Value.Should().Be(8);
         }
         
         [Fact]
@@ -116,12 +118,13 @@ namespace GraphyteTests
             var tree = ConstructBaseTestTree();
             tree.InsertByValue(18);
             tree.InsertByValue(16);
+            var parentNode = tree.FindByValue(16);
 
             tree.DeleteByValue(15);
 
             tree.Nodes.Should().BeEquivalentTo(expectedNodes);
-            _root.RightChild.Value.Should().Be(16);
-            node16.RightChild.Value.Should().Be(20);
+            tree.Root.RightChild.Value.Should().Be(16);
+            parentNode.RightChild.Value.Should().Be(20);
         }
 
         // TODO implement a find by value that uses Linq to traverse the _nodes list and benchmark vs this one
