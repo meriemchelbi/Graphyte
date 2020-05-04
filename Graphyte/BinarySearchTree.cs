@@ -18,25 +18,40 @@ namespace Graphyte
             TryInsert(value, Root);
         }
 
-        
-
         public void DeleteByValue(int value)
         {
-            var toBeDeleted = FindByValue(value);
+            var parent = Root;
 
-            // Case 1: if toBeDeleted has no right child replace with leftChild
-            if (toBeDeleted.RightChild is null)
+            var toRemove = TryMatch(value, ref parent);
+
+            if (toRemove == parent.RightChild)
             {
-                _nodes.Remove(toBeDeleted);
-                // how do I replace the parent
+                if (toRemove.RightChild is null) // Case 1
+                {
+                    parent.RightChild = toRemove.LeftChild;
+                }
             }
-            // Case 2: if toBeDeleted right child has no left child replace with dn rightChild
-            // Case 2: if toBeDeleted right child has left child replace with dn rightChild's leftmost descendant
+
+            if (toRemove == parent.LeftChild)
+            {
+                if (toRemove.RightChild is null) // Case 1
+                {
+                    parent.LeftChild = toRemove.LeftChild;
+                }
+            }
+                        
+
+            _nodes.Remove(toRemove);
+
+            // Case 1: if toRemove has no right child replace with leftChild
+            // Case 2: if toRemove right child has no left child replace with dn rightChild
+            // Case 3: if toRemove right child has left child replace with dn rightChild's leftmost descendant
         }
 
         public BinaryTreeNode FindByValue(int value)
         {
-            return TryMatch(value, Root);
+            var parent = Root;
+            return TryMatch(value, ref parent);
         }
 
         public BinaryTreeNode FindSmallest()
@@ -82,17 +97,28 @@ namespace Graphyte
             }
         }
 
-        private BinaryTreeNode TryMatch(int value, BinaryTreeNode node)
+        private BinaryTreeNode TryMatch(int value, ref BinaryTreeNode parent)
         {
-            if (node is null)
+            if (parent is null)
                 throw new NullReferenceException("Node is null!");
-            if (value == node.Value)
-                return node;
-            if (value < node.Value)
-                return TryMatch(value, node.LeftChild);
-            if (value > node.Value)
-                return TryMatch(value, node.RightChild);
-            else return null;
+            if (value == parent.Value)
+            {
+                return parent;
+            }
+            if (value < parent.Value)
+            {
+                parent = parent.LeftChild;
+                return TryMatch(value, ref parent);
+            }
+            if (value > parent.Value)
+            {
+                parent = parent.RightChild;
+                return TryMatch(value, ref parent);
+            }
+            else
+            {
+                return null;
+            }
         }
 
         private BinaryTreeNode TryGetLeftChild(BinaryTreeNode node)
