@@ -38,15 +38,62 @@ namespace Graphyte
                     parent.RightChild = toRemove.LeftChild; // replace parent right child with left child of the node you want to remove;
                 }
                 else
-                {
                     throw new Exception("Current node is the same as its parent... You've got a bug! (or a single node tree)");
-                }
             }
 
-            // Case 2: if toRemove right child has no left child replace with dn rightChild
-            // Case 3: if toRemove right child has left child replace with dn rightChild's leftmost descendant
+            // Case 2: if toRemove right child has no left child replace with rightChild
+            else if (toRemove.RightChild.LeftChild is null)
+            {
+                if (position < 0)
+                {
+                    parent.LeftChild = toRemove.RightChild; // replace parent right child with left child of the node you want to remove;
+                    parent.LeftChild.LeftChild = toRemove.LeftChild ?? null;
+                }
+                else if (position > 0)
+                {
+                    parent.RightChild = toRemove.RightChild; // replace parent right child with right child of the node you want to remove;
+                    parent.RightChild.LeftChild = toRemove.LeftChild ?? null;
+                }
+                else
+                    throw new Exception("Current node is the same as its parent... You've got a bug! (or a single node tree)");
+            }
+
+            // Case 3: if toRemove right child has left child replace with toRemove.rightChild's leftmost descendant
+            else if (toRemove.RightChild.LeftChild != null)
+            {
+                if (position < 0)
+                {
+                    parent.LeftChild = FindLeftmostDescendant(toRemove.RightChild);
+                    parent.LeftChild.LeftChild = toRemove.LeftChild ?? null;
+                    parent.LeftChild.RightChild = toRemove.RightChild ?? null;
+                }
+                else if (position > 0)
+                {
+                    parent.RightChild = FindLeftmostDescendant(toRemove.RightChild);
+                    parent.RightChild.LeftChild = toRemove.LeftChild ?? null;
+                    parent.RightChild.RightChild = toRemove.RightChild ?? null;
+                }
+                else
+                    throw new Exception("Current node is the same as its parent... You've got a bug! (or a single node tree)");
+            }
 
             _nodes.Remove(toRemove);
+        }
+
+        private BinaryTreeNode FindLeftmostDescendant(BinaryTreeNode node)
+        {
+            BinaryTreeNode result = null;
+
+            while (result == null)
+            {
+                if (node.LeftChild != null)
+                {
+                    node = node.LeftChild;
+                }
+                else result = node;
+            }
+
+            return result;
         }
 
         public BinaryTreeNode FindByValueRecursive(int value)
