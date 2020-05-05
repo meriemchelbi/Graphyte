@@ -6,7 +6,7 @@ namespace Graphyte
 {
     public class BinarySearchTree : Tree<int>
     {
-        public BinaryTreeNode Root { get; }
+        public BinaryTreeNode Root { get; private set; }
 
         public BinarySearchTree(BinaryTreeNode root) : base(root)
         {
@@ -111,7 +111,7 @@ namespace Graphyte
             return TryGetRightChild(Root);
         }
 
-        private void TryInsert(int value, BinaryTreeNode node)
+        private void TryInsertRecursive(int value, BinaryTreeNode node)
         {
             if (node is null)
                 throw new NullReferenceException("Node is null!");
@@ -128,7 +128,7 @@ namespace Graphyte
                     return;
                 }
                 else
-                    TryInsert(value, node.LeftChild);
+                    TryInsertRecursive(value, node.LeftChild);
             }
 
             if (value > node.Value)
@@ -140,7 +140,55 @@ namespace Graphyte
                     return;
                 }
                 else
-                    TryInsert(value, node.RightChild);
+                    TryInsertRecursive(value, node.RightChild);
+            }
+        }
+
+        private void TryInsert(int value, BinaryTreeNode node)
+        {
+            if (node is null)
+                throw new NullReferenceException("Node is null!");
+
+            BinaryTreeNode current = node;
+            BinaryTreeNode parent= null;
+
+            while (current != null)
+            {
+                var comparison = Compare(value, node);
+
+                if (comparison == 0)
+                    throw new Exception("There is already a node with this value in the tree. Go climb some other tree");
+
+                if (comparison < 0)
+                {
+                    parent = current;
+                    current = current.LeftChild;
+                }
+
+                else if (comparison > 0)
+                {
+                    parent = current;
+                    current = current.RightChild;
+                }
+            }
+
+            if (parent == null)
+            {
+                Root = node;
+            }
+
+            var relativeToParent = Compare(value, parent);
+            if (relativeToParent < 0)
+            {
+                parent.LeftChild = new BinaryTreeNode(value);
+                _nodes.Add(parent.LeftChild);
+                return;
+            }
+            else if (relativeToParent > 0)
+            {
+                parent.RightChild = new BinaryTreeNode(value);
+                _nodes.Add(parent.RightChild);
+                return;
             }
         }
 

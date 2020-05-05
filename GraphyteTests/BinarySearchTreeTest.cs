@@ -49,6 +49,7 @@ namespace GraphyteTests
             tree.InsertByValue(20);
 
             tree.Root.Should().BeEquivalentTo(_root);
+            tree.Nodes.Should().HaveCount(expectedNodes.Count);
             tree.Nodes.Should().BeEquivalentTo(expectedNodes);
         }
 
