@@ -9,12 +9,19 @@ namespace GraphyteTests
 {
     public class BinarySearchTreeTest
     {
-        private BinaryTreeNode _root;
-        private BinaryTreeNode _node4;
-        private BinaryTreeNode _node5;
-        private BinaryTreeNode _node8;
-        private BinaryTreeNode _node15;
-        private BinaryTreeNode _node20;
+        private readonly BinaryTreeNode _root;
+        private readonly BinaryTreeNode _node4;
+        private readonly BinaryTreeNode _node5;
+        private readonly BinaryTreeNode _node8;
+        private readonly BinaryTreeNode _node15;
+        private readonly BinaryTreeNode _node20;
+        private readonly BinaryTreeNode _sutRoot;
+        private readonly BinaryTreeNode _sutNode4;
+        private readonly BinaryTreeNode _sutNode15;
+        private readonly BinaryTreeNode _sutNode8;
+        private readonly BinaryTreeNode _sutNode5;
+        private readonly BinaryTreeNode _sutNode20;
+        private BinarySearchTree _tree;
 
         public BinarySearchTreeTest()
         {
@@ -25,11 +32,20 @@ namespace GraphyteTests
             _node15 = new BinaryTreeNode(15);
             _node20 = new BinaryTreeNode(20);
 
+            _sutRoot = new BinaryTreeNode(7);
+            _sutNode4 = new BinaryTreeNode(4);
+            _sutNode15 = new BinaryTreeNode(15);
+            _sutNode8 = new BinaryTreeNode(8);
+            _sutNode5 = new BinaryTreeNode(5);
+            _sutNode20 = new BinaryTreeNode(20);
+
             _root.LeftChild = _node4;
             _root.RightChild = _node15;
             _node15.LeftChild = _node8;
             _node4.RightChild = _node5;
             _node15.RightChild = _node20;
+
+            ConstructBaseTestTree();
         }
 
         [Fact]
@@ -74,14 +90,13 @@ namespace GraphyteTests
                 _root, _node4, _node5, _node8, _node15, node18,
             };
 
-            var tree = ConstructBaseTestTree();
-            tree.InsertByValue(18);
-            var parentNode = tree.FindByValueRecursive(15);
+            _tree.Nodes.Add(node18);
+            _sutNode20.LeftChild = node18;
 
-            tree.DeleteByValue(20);
+            _tree.DeleteByValue(20);
 
-            tree.Nodes.Should().BeEquivalentTo(expectedNodes);
-            parentNode.RightChild.Value.Should().Be(18);
+            _tree.Nodes.Should().BeEquivalentTo(expectedNodes);
+            _sutNode15.RightChild.Value.Should().Be(18);
         }
 
         [Fact]
@@ -92,13 +107,11 @@ namespace GraphyteTests
                 _root, _node4, _node5, _node8, _node20,
             };
 
-            var tree = ConstructBaseTestTree();
+            _tree.DeleteByValue(15);
 
-            tree.DeleteByValue(15);
-
-            tree.Nodes.Should().BeEquivalentTo(expectedNodes);
-            tree.Root.RightChild.Value.Should().Be(20);
-            tree.Root.RightChild.LeftChild.Value.Should().Be(8);
+            _tree.Nodes.Should().BeEquivalentTo(expectedNodes);
+            _tree.Root.RightChild.Value.Should().Be(20);
+            _tree.Root.RightChild.LeftChild.Value.Should().Be(8);
         }
         
         [Fact]
@@ -115,16 +128,16 @@ namespace GraphyteTests
                 _root, _node4, _node5, _node8, _node20, node18, node16
             };
 
-            var tree = ConstructBaseTestTree();
-            tree.InsertByValue(18);
-            tree.InsertByValue(16);
+            _tree.Nodes.Add(node18);
+            _tree.Nodes.Add(node16);
+            _sutNode20.LeftChild = node18;
 
-            tree.DeleteByValue(15);
+            _tree.DeleteByValue(15);
 
-            tree.Nodes.Should().BeEquivalentTo(expectedNodes);
-            tree.Root.RightChild.Value.Should().Be(16);
-            tree.Root.RightChild.LeftChild.Value.Should().Be(8);
-            tree.Root.RightChild.RightChild.Value.Should().Be(20);
+            _tree.Nodes.Should().BeEquivalentTo(expectedNodes);
+            _tree.Root.RightChild.Value.Should().Be(16);
+            _tree.Root.RightChild.LeftChild.Value.Should().Be(8);
+            _tree.Root.RightChild.RightChild.Value.Should().Be(20);
         }
 
         // TODO implement a find by value that uses Linq to traverse the _nodes list and benchmark vs this one
@@ -172,17 +185,21 @@ namespace GraphyteTests
         }
 
 
-        private static BinarySearchTree ConstructBaseTestTree()
+        private void ConstructBaseTestTree()
         {
-            var tree = new BinarySearchTree(new BinaryTreeNode(7));
+            _tree = new BinarySearchTree(_sutRoot);
 
-            tree.InsertByValue(4);
-            tree.InsertByValue(15);
-            tree.InsertByValue(8);
-            tree.InsertByValue(5);
-            tree.InsertByValue(20);
+            _sutRoot.LeftChild = _sutNode4;
+            _sutRoot.RightChild = _sutNode15;
+            _sutNode15.LeftChild = _sutNode8;
+            _sutNode15.RightChild = _sutNode20;
+            _sutNode4.RightChild = _sutNode5;
 
-            return tree;
+            _tree.Nodes.Add(_sutNode4);
+            _tree.Nodes.Add(_sutNode15);
+            _tree.Nodes.Add(_sutNode8);
+            _tree.Nodes.Add(_sutNode5);
+            _tree.Nodes.Add(_sutNode20);
         }
     }
 }
