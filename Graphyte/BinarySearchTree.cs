@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BenchmarkDotNet.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,7 +7,8 @@ namespace Graphyte
 {
     public class BinarySearchTree : Tree<int>
     {
-        public BinaryTreeNode Root { get; private set; }
+        public BinaryTreeNode Root { get; set; }
+        public BinarySearchTree Tree { get; set; }
 
         public BinarySearchTree(BinaryTreeNode root) : base(root)
         {
@@ -16,6 +18,11 @@ namespace Graphyte
         public void InsertByValue(int value)
         {
             TryInsert(value, Root);
+        }
+
+        public void InsertByValueRecursive(int value)
+        {
+            TryInsertRecursive(value, Root);
         }
 
         public void DeleteByValue(int value)
@@ -110,7 +117,7 @@ namespace Graphyte
         {
             return TryGetRightChild(Root);
         }
-
+                
         private void TryInsertRecursive(int value, BinaryTreeNode node)
         {
             if (node is null)
@@ -144,7 +151,7 @@ namespace Graphyte
             }
         }
 
-        private void TryInsert(int value, BinaryTreeNode node)
+        public void TryInsert(int value, BinaryTreeNode node)
         {
             if (node is null)
                 throw new NullReferenceException("Node is null!");
