@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\merie\\Documents\\GitHub\\Graphyte\\GraphyteTests\\GraphyteTests.csproj": {}
+    "C:\\Users\\meriemc\\Documents\\GitHub\\Graphyte\\GraphyteTests\\GraphyteTests.csproj": {}
   },
   "projects": {
-    "C:\\Users\\merie\\Documents\\GitHub\\Graphyte\\GraphyteTests\\GraphyteTests.csproj": {
+    "C:\\Users\\meriemc\\Documents\\GitHub\\Graphyte\\GraphyteTests\\GraphyteTests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\merie\\Documents\\GitHub\\Graphyte\\GraphyteTests\\GraphyteTests.csproj",
+        "projectUniqueName": "C:\\Users\\meriemc\\Documents\\GitHub\\Graphyte\\GraphyteTests\\GraphyteTests.csproj",
         "projectName": "GraphyteTests",
-        "projectPath": "C:\\Users\\merie\\Documents\\GitHub\\Graphyte\\GraphyteTests\\GraphyteTests.csproj",
-        "packagesPath": "C:\\Users\\merie\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\merie\\Documents\\GitHub\\Graphyte\\GraphyteTests\\obj\\",
+        "projectPath": "C:\\Users\\meriemc\\Documents\\GitHub\\Graphyte\\GraphyteTests\\GraphyteTests.csproj",
+        "packagesPath": "C:\\Users\\meriemc\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\meriemc\\Documents\\GitHub\\Graphyte\\GraphyteTests\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\merie\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\meriemc\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -30,8 +30,8 @@
         "frameworks": {
           "netcoreapp3.0": {
             "projectReferences": {
-              "C:\\Users\\merie\\Documents\\GitHub\\Graphyte\\Graphyte\\Graphyte.csproj": {
-                "projectPath": "C:\\Users\\merie\\Documents\\GitHub\\Graphyte\\Graphyte\\Graphyte.csproj"
+              "C:\\Users\\meriemc\\Documents\\GitHub\\Graphyte\\Graphyte\\Graphyte.csproj": {
+                "projectPath": "C:\\Users\\meriemc\\Documents\\GitHub\\Graphyte\\Graphyte\\Graphyte.csproj"
               }
             }
           }
@@ -83,24 +83,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.200-preview-015002\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\merie\\Documents\\GitHub\\Graphyte\\Graphyte\\Graphyte.csproj": {
+    "C:\\Users\\meriemc\\Documents\\GitHub\\Graphyte\\Graphyte\\Graphyte.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\merie\\Documents\\GitHub\\Graphyte\\Graphyte\\Graphyte.csproj",
+        "projectUniqueName": "C:\\Users\\meriemc\\Documents\\GitHub\\Graphyte\\Graphyte\\Graphyte.csproj",
         "projectName": "Graphyte",
-        "projectPath": "C:\\Users\\merie\\Documents\\GitHub\\Graphyte\\Graphyte\\Graphyte.csproj",
-        "packagesPath": "C:\\Users\\merie\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\merie\\Documents\\GitHub\\Graphyte\\Graphyte\\obj\\",
+        "projectPath": "C:\\Users\\meriemc\\Documents\\GitHub\\Graphyte\\Graphyte\\Graphyte.csproj",
+        "packagesPath": "C:\\Users\\meriemc\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\meriemc\\Documents\\GitHub\\Graphyte\\Graphyte\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\merie\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\meriemc\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -145,7 +145,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.200-preview-015002\\RuntimeIdentifierGraph.json"
         }
       }
     }

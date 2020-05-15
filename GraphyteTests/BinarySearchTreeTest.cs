@@ -9,42 +9,22 @@ namespace GraphyteTests
 {
     public class BinarySearchTreeTest
     {
-        private readonly BinaryTreeNode _root;
-        private readonly BinaryTreeNode _node4;
-        private readonly BinaryTreeNode _node5;
-        private readonly BinaryTreeNode _node8;
-        private readonly BinaryTreeNode _node15;
-        private readonly BinaryTreeNode _node20;
-        private readonly BinaryTreeNode _sutRoot;
-        private readonly BinaryTreeNode _sutNode4;
-        private readonly BinaryTreeNode _sutNode15;
-        private readonly BinaryTreeNode _sutNode8;
-        private readonly BinaryTreeNode _sutNode5;
-        private readonly BinaryTreeNode _sutNode20;
+        private BinaryTreeNode _root;
+        private BinaryTreeNode _node4;
+        private BinaryTreeNode _node5;
+        private BinaryTreeNode _node8;
+        private BinaryTreeNode _node15;
+        private BinaryTreeNode _node20;
+        private BinaryTreeNode _sutRoot;
+        private BinaryTreeNode _sutNode4;
+        private BinaryTreeNode _sutNode15;
+        private BinaryTreeNode _sutNode8;
+        private BinaryTreeNode _sutNode5;
+        private BinaryTreeNode _sutNode20;
         private BinarySearchTree _tree;
 
         public BinarySearchTreeTest()
         {
-            _root = new BinaryTreeNode(7);
-            _node4 = new BinaryTreeNode(4);
-            _node5 = new BinaryTreeNode(5);
-            _node8 = new BinaryTreeNode(8);
-            _node15 = new BinaryTreeNode(15);
-            _node20 = new BinaryTreeNode(20);
-
-            _sutRoot = new BinaryTreeNode(7);
-            _sutNode4 = new BinaryTreeNode(4);
-            _sutNode15 = new BinaryTreeNode(15);
-            _sutNode8 = new BinaryTreeNode(8);
-            _sutNode5 = new BinaryTreeNode(5);
-            _sutNode20 = new BinaryTreeNode(20);
-
-            _root.LeftChild = _node4;
-            _root.RightChild = _node15;
-            _node15.LeftChild = _node8;
-            _node4.RightChild = _node5;
-            _node15.RightChild = _node20;
-
             ConstructBaseTestTree();
         }
 
@@ -187,6 +167,26 @@ namespace GraphyteTests
 
         private void ConstructBaseTestTree()
         {
+            _root = new BinaryTreeNode(7);
+            _node4 = new BinaryTreeNode(4);
+            _node5 = new BinaryTreeNode(5);
+            _node8 = new BinaryTreeNode(8);
+            _node15 = new BinaryTreeNode(15);
+            _node20 = new BinaryTreeNode(20);
+
+            _root.LeftChild = _node4;
+            _root.RightChild = _node15;
+            _node15.LeftChild = _node8;
+            _node4.RightChild = _node5;
+            _node15.RightChild = _node20;
+
+            _sutRoot = new BinaryTreeNode(7);
+            _sutNode4 = new BinaryTreeNode(4);
+            _sutNode15 = new BinaryTreeNode(15);
+            _sutNode8 = new BinaryTreeNode(8);
+            _sutNode5 = new BinaryTreeNode(5);
+            _sutNode20 = new BinaryTreeNode(20);
+
             _tree = new BinarySearchTree(_sutRoot);
 
             _sutRoot.LeftChild = _sutNode4;
