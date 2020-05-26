@@ -5,15 +5,16 @@ using System.Text;
 
 namespace Graphyte
 {
-    public class BinarySearchTree : Tree<int>
+    public class BinarySearchTree : Tree<int, BinaryTreeNode>
     {
-        public BinaryTreeNode Root { get; set; }
-        public BinarySearchTree Tree { get; set; }
-
         public BinarySearchTree(BinaryTreeNode root) : base(root)
         {
-            Root = root;
         }
+        
+        //public BinarySearchTree(int rootValue) : base()
+        //{
+        //    Root = new BinaryTreeNode(rootValue);
+        //}
 
         public void InsertByValue(int value)
         {

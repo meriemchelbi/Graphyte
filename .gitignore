@@ -278,3 +278,4 @@ Graphyte/obj/Graphyte.csproj.nuget.cache
 Graphyte/obj/Graphyte.csproj.nuget.dgspec.json
 Graphyte/obj/Graphyte.csproj.nuget.g.props
 Graphyte/obj/project.assets.json
+*.props

@@ -4,14 +4,14 @@ using System.Text;
 
 namespace Graphyte
 {
-    public class Tree<T> : Graph<T>
+    public class Tree<T, TNode> : Graph<T> where TNode : Node<T>
     {
-        public Node<T> Root { get; }
+        public TNode Root { get; protected set; }
 
-        public Tree(Node<T> root) : base()
+        public Tree(TNode root)
         {
             Root = root;
-            _nodes = new List<Node<T>> { root };
+            _nodes.Add(root);
         }
     }
 }
