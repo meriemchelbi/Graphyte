@@ -1,18 +1,13 @@
-﻿using BenchmarkDotNet.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
 
 namespace Graphyte
 {
-    public class BinarySearchTree : Tree<int>
+    public class BinarySearchTree : Tree<int, BinaryTreeNode>
     {
-        public BinaryTreeNode Root { get; set; }
         public BinarySearchTree Tree { get; set; }
 
         public BinarySearchTree(BinaryTreeNode root) : base(root)
         {
-            Root = root;
         }
 
         public void InsertByValue(int value)
@@ -150,13 +145,13 @@ namespace Graphyte
             if (relativeToParent < 0)
             {
                 parent.LeftChild = new BinaryTreeNode(value);
-                _nodes.Add(parent.LeftChild);
+                AddNode(parent.LeftChild);
                 return;
             }
             else if (relativeToParent > 0)
             {
                 parent.RightChild = new BinaryTreeNode(value);
-                _nodes.Add(parent.RightChild);
+                AddNode(parent.RightChild);
                 return;
             }
         }
@@ -232,7 +227,7 @@ namespace Graphyte
                 if (node.LeftChild is null)
                 {
                     node.LeftChild = new BinaryTreeNode(value);
-                    _nodes.Add(node.LeftChild);
+                    AddNode(node.LeftChild);
                     return;
                 }
                 else
@@ -244,7 +239,7 @@ namespace Graphyte
                 if (node.RightChild is null)
                 {
                     node.RightChild = new BinaryTreeNode(value);
-                    _nodes.Add(node.RightChild);
+                    AddNode(node.RightChild);
                     return;
                 }
                 else

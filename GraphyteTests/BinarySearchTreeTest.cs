@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Xunit;
 using FluentAssertions;
 using Graphyte;
@@ -26,6 +25,13 @@ namespace GraphyteTests
         public BinarySearchTreeTest()
         {
             ConstructBaseTestTree();
+        }
+
+        [Fact]
+        public void BinarySearchTreeConstructsAsInheritedTypes()
+        {
+            //_tree.Nodes.Count.Should().Be(6);
+            _tree.Nodes.ForEach(n => n.Should().BeOfType<BinaryTreeNode>());
         }
 
         [Fact]
@@ -180,6 +186,8 @@ namespace GraphyteTests
             _node4.RightChild = _node5;
             _node15.RightChild = _node20;
 
+            _tree = new BinarySearchTree(_sutRoot);
+
             _sutRoot = new BinaryTreeNode(7);
             _sutNode4 = new BinaryTreeNode(4);
             _sutNode15 = new BinaryTreeNode(15);
@@ -187,19 +195,11 @@ namespace GraphyteTests
             _sutNode5 = new BinaryTreeNode(5);
             _sutNode20 = new BinaryTreeNode(20);
 
-            _tree = new BinarySearchTree(_sutRoot);
-
             _sutRoot.LeftChild = _sutNode4;
             _sutRoot.RightChild = _sutNode15;
             _sutNode15.LeftChild = _sutNode8;
             _sutNode15.RightChild = _sutNode20;
             _sutNode4.RightChild = _sutNode5;
-
-            _tree.Nodes.Add(_sutNode4);
-            _tree.Nodes.Add(_sutNode15);
-            _tree.Nodes.Add(_sutNode8);
-            _tree.Nodes.Add(_sutNode5);
-            _tree.Nodes.Add(_sutNode20);
         }
     }
 }

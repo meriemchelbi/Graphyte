@@ -12,7 +12,7 @@ namespace GraphyteTests
         [Fact]
         public void FindNodeRetrievesCorrectNode()
         {
-            var metallica = new Graph<string>();
+            var metallica = new Graph<string, Node<string>>();
             var node1 = new Node<string>("Lars");
             var node2 = new Node<string>("James");
             var node3 = new Node<string>("Kirk");

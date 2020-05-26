@@ -3,41 +3,41 @@ using System.Linq;
 
 namespace Graphyte
 {
-    public class Graph<T>
+    public class Graph<T, TNode> where TNode : Node<T>
     {
-        public List<Node<T>> Nodes
+        public List<TNode> Nodes
         {
             get { return _nodes; }
             private set { }
         }
 
-        protected List<Node<T>> _nodes;
+        protected List<TNode> _nodes;
 
         public Graph()
         {
-            _nodes = new List<Node<T>>();
+            _nodes = new List<TNode>();
         }
 
-        public void AddNode(Node<T> node)
+        public void AddNode(TNode node)
         {
             _nodes.Add(node);
         }
 
-        public void AddNodes(params Node<T>[] nodes)
+        public void AddNodes(params TNode[] nodes)
         {
             _nodes.AddRange(nodes);
         }
 
-        public Node<T> FindNode(T value)
+        public TNode FindNode(T value)
         {
             return _nodes.Where(n => n.Value.Equals(value)).First();
         }
 
         // TODO: try implementing without having to traverse the entire tree to the root.
-        public int CountShortestDistance(Node<T> origin, Node<T> destination)
+        public int CountShortestDistance(TNode origin, TNode destination)
         {
-            var originParents = new List<Node<T>>();
-            var destinationParents = new List<Node<T>>();
+            var originParents = new List<TNode>();
+            var destinationParents = new List<TNode>();
 
             FindNodeParents(origin, originParents);
             FindNodeParents(destination, destinationParents);
@@ -47,7 +47,7 @@ namespace Graphyte
             return originParents.IndexOf(mutualParent) + destinationParents.IndexOf(mutualParent);
         }
 
-        private List<Node<T>> FindNodeParents(Node<T> child, List<Node<T>> result)
+        private List<TNode> FindNodeParents(TNode child, List<TNode> result)
         {
             foreach (var node in _nodes)
             {
