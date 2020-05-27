@@ -145,13 +145,13 @@ namespace Graphyte
             if (relativeToParent < 0)
             {
                 parent.LeftChild = new BinaryTreeNode(value);
-                AddNode(parent.LeftChild);
+                _nodes.Add(parent.LeftChild);
                 return;
             }
             else if (relativeToParent > 0)
             {
                 parent.RightChild = new BinaryTreeNode(value);
-                AddNode(parent.RightChild);
+                _nodes.Add(parent.RightChild);
                 return;
             }
         }
@@ -227,7 +227,7 @@ namespace Graphyte
                 if (node.LeftChild is null)
                 {
                     node.LeftChild = new BinaryTreeNode(value);
-                    AddNode(node.LeftChild);
+                    _nodes.Add(node.LeftChild);
                     return;
                 }
                 else
@@ -239,7 +239,7 @@ namespace Graphyte
                 if (node.RightChild is null)
                 {
                     node.RightChild = new BinaryTreeNode(value);
-                    AddNode(node.RightChild);
+                    _nodes.Add(node.RightChild);
                     return;
                 }
                 else

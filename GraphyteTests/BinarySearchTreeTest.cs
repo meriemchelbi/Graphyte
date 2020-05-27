@@ -30,7 +30,8 @@ namespace GraphyteTests
         [Fact]
         public void BinarySearchTreeConstructsAsInheritedTypes()
         {
-            //_tree.Nodes.Count.Should().Be(6);
+            _tree.Root.Should().BeEquivalentTo(_sutRoot);
+            _tree.Nodes.Count.Should().Be(6);
             _tree.Nodes.ForEach(n => n.Should().BeOfType<BinaryTreeNode>());
         }
 
@@ -186,7 +187,6 @@ namespace GraphyteTests
             _node4.RightChild = _node5;
             _node15.RightChild = _node20;
 
-            _tree = new BinarySearchTree(_sutRoot);
 
             _sutRoot = new BinaryTreeNode(7);
             _sutNode4 = new BinaryTreeNode(4);
@@ -194,6 +194,9 @@ namespace GraphyteTests
             _sutNode8 = new BinaryTreeNode(8);
             _sutNode5 = new BinaryTreeNode(5);
             _sutNode20 = new BinaryTreeNode(20);
+
+            _tree = new BinarySearchTree(_sutRoot);
+            _tree.AddNodes(_sutNode4, _sutNode5, _sutNode8, _sutNode15, _sutNode20);
 
             _sutRoot.LeftChild = _sutNode4;
             _sutRoot.RightChild = _sutNode15;
