@@ -26,17 +26,6 @@ namespace Graphyte
 
             var toRemove = FindNodeAndParent(value, Root, ref parent);
 
-            // TODO ask node- equality comparer-ish
-            //public class EdgeCost : IComparable<EdgeCost>
-            //{
-            //    public int Cost { get; set; }
-            //    public int CompareTo(EdgeCost other)
-            //    {
-            //        if (ReferenceEquals(this, other)) return 0;
-            //        if (ReferenceEquals(null, other)) return 1;
-            //        return Cost.CompareTo(other.Cost);
-            //    }
-            //}
         var position = Compare(toRemove.Value, parent); 
 
             // Case 1: if toRemove has no right child replace with leftChild
