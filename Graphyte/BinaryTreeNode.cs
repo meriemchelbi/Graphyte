@@ -4,19 +4,19 @@ using System.Text;
 
 namespace Graphyte
 {
-    public class BinaryTreeNode : Node<int>
+    public class BinaryTreeNode<T> : Node<T> where T : IComparable<T>
     {
-        public BinaryTreeNode LeftChild 
+        public BinaryTreeNode<T> LeftChild 
         {
-            get { return Neighbours[0]; }
+            get { return Neighbours[0] as BinaryTreeNode<T>; } // null-safe syntax
             set { Neighbours[0] = value; }
         }
-        public BinaryTreeNode RightChild
+        public BinaryTreeNode<T> RightChild
         {
-            get { return Neighbours[1]; }
+            get { return Neighbours[1] as BinaryTreeNode<T>; }
             set { Neighbours[1] = value; }
         }
-        public BinaryTreeNode(int value) : base(value)
+        public BinaryTreeNode(T value) : base(value)
         {
         }
     }

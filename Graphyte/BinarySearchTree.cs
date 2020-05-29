@@ -2,31 +2,35 @@
 
 namespace Graphyte
 {
-    public class BinarySearchTree : Tree<int, BinaryTreeNode>
+    public class BinarySearchTree<T> : Tree<T> where T : IComparable<T>
     {
-        public BinarySearchTree Tree { get; set; }
+        public BinarySearchTree<T> Tree { get; set; }
+        public BinaryTreeNode<T> Root
+        {
+            get { return base.Root as BinaryTreeNode<T>; }
+        }
 
-        public BinarySearchTree(BinaryTreeNode root) : base(root)
+        public BinarySearchTree(BinaryTreeNode<T> root) : base(root)
         {
         }
 
-        public void InsertByValue(int value)
+        public void InsertByValue(T value)
         {
             TryInsert(value, Root);
         }
 
-        public void InsertByValueRecursive(int value)
+        public void InsertByValueRecursive(T value)
         {
             TryInsertRecursive(value, Root);
         }
 
-        public void DeleteByValue(int value)
+        public void DeleteByValue(T value)
         {
-            BinaryTreeNode parent = null;
+            BinaryTreeNode<T> parent = null;
 
             var toRemove = FindNodeAndParent(value, Root, ref parent);
 
-        var position = Compare(toRemove.Value, parent); 
+            var position = toRemove.CompareTo(parent); 
 
             // Case 1: if toRemove has no right child replace with leftChild
             if (toRemove.RightChild is null)
@@ -82,32 +86,32 @@ namespace Graphyte
             _nodes.Remove(toRemove);
         }
 
-        public BinaryTreeNode FindByValueRecursive(int value)
+        public BinaryTreeNode<T> FindByValueRecursive(T value)
         {
             return TryMatchRecursive(value, Root);
         }
 
-        public BinaryTreeNode FindSmallest()
+        public BinaryTreeNode<T> FindSmallest()
         {
             return TryGetLeftChild(Root);
         }
 
-        public BinaryTreeNode FindLargest()
+        public BinaryTreeNode<T> FindLargest()
         {
             return TryGetRightChild(Root);
         }
         
-        public void TryInsert(int value, BinaryTreeNode node)
+        public void TryInsert(T value, BinaryTreeNode<T> node)
         {
             if (node is null)
                 throw new NullReferenceException("Node is null!");
 
-            BinaryTreeNode current = node;
-            BinaryTreeNode parent= null;
+            BinaryTreeNode<T> current = node;
+            BinaryTreeNode<T> parent= null;
 
             while (current != null)
             {
-                var comparison = Compare(value, node);
+                var comparison = node.Value.CompareTo(value);
 
                 if (comparison == 0)
                     throw new Exception("There is already a node with this value in the tree. Go climb some other tree");
@@ -130,35 +134,35 @@ namespace Graphyte
                 Root = node;
             }
 
-            var relativeToParent = Compare(value, parent);
+            var relativeToParent = node.CompareTo(parent);
             if (relativeToParent < 0)
             {
-                parent.LeftChild = new BinaryTreeNode(value);
+                parent.LeftChild = new BinaryTreeNode<T>(value);
                 _nodes.Add(parent.LeftChild);
                 return;
             }
             else if (relativeToParent > 0)
             {
-                parent.RightChild = new BinaryTreeNode(value);
+                parent.RightChild = new BinaryTreeNode<T>(value);
                 _nodes.Add(parent.RightChild);
                 return;
             }
         }
 
-        private BinaryTreeNode TryMatchRecursive(int value, BinaryTreeNode node)
+        private BinaryTreeNode<T> TryMatchRecursive(T value, BinaryTreeNode<T> node)
         {
             if (node is null)
                 throw new NullReferenceException("Node is null!");
-            if (value == node.Value)
+            if (value.CompareTo(node.Value) == 0)
             {
                 return node;
             }
-            if (value < node.Value)
+            if (value.CompareTo(node.Value) < 0)
             {
                 node = node.LeftChild;
                 return TryMatchRecursive(value, node);
             }
-            if (value > node.Value)
+            if (value.CompareTo(node.Value) > 0)
             {
                 node = node.RightChild;
                 return TryMatchRecursive(value, node);
@@ -169,7 +173,7 @@ namespace Graphyte
             }
         }
 
-        private BinaryTreeNode TryGetLeftChild(BinaryTreeNode node)
+        private BinaryTreeNode<T> TryGetLeftChild(BinaryTreeNode<T> node)
         {
             if (node is null)
                 throw new NullReferenceException("Node is null!");
@@ -178,7 +182,7 @@ namespace Graphyte
             else return TryGetLeftChild(node.LeftChild);
         }
 
-        private BinaryTreeNode TryGetRightChild(BinaryTreeNode node)
+        private BinaryTreeNode<T> TryGetRightChild(BinaryTreeNode<T> node)
         {
             if (node is null)
                 throw new NullReferenceException("Node is null!");
@@ -187,9 +191,9 @@ namespace Graphyte
             else return TryGetRightChild(node.RightChild);
         }
 
-        private BinaryTreeNode FindLeftmostDescendant(BinaryTreeNode node)
+        private BinaryTreeNode<T> FindLeftmostDescendant(BinaryTreeNode<T> node)
         {
-            BinaryTreeNode result = null;
+            BinaryTreeNode<T> result = null;
 
             while (result == null)
             {
@@ -203,19 +207,19 @@ namespace Graphyte
             return result;
         }
 
-        private void TryInsertRecursive(int value, BinaryTreeNode node)
+        private void TryInsertRecursive(T value, BinaryTreeNode<T> node)
         {
             if (node is null)
                 throw new NullReferenceException("Node is null!");
-
-            if (value == node.Value)
+            
+            if(value.CompareTo(node.Value) == 0)
                 throw new Exception("There is already a node with this value in the tree. Go climb some other tree");
 
-            if (value < node.Value)
+            if (value.CompareTo(node.Value) < 0)
             {
                 if (node.LeftChild is null)
                 {
-                    node.LeftChild = new BinaryTreeNode(value);
+                    node.LeftChild = new BinaryTreeNode<T>(value);
                     _nodes.Add(node.LeftChild);
                     return;
                 }
@@ -223,11 +227,11 @@ namespace Graphyte
                     TryInsertRecursive(value, node.LeftChild);
             }
 
-            if (value > node.Value)
+            if (value.CompareTo(node.Value) > 0)
             {
                 if (node.RightChild is null)
                 {
-                    node.RightChild = new BinaryTreeNode(value);
+                    node.RightChild = new BinaryTreeNode<T>(value);
                     _nodes.Add(node.RightChild);
                     return;
                 }
@@ -236,9 +240,9 @@ namespace Graphyte
             }
         }
 
-        private BinaryTreeNode FindNodeAndParent(int value, BinaryTreeNode current, ref BinaryTreeNode parent)
+        private BinaryTreeNode<T> FindNodeAndParent(T value, BinaryTreeNode<T> current, ref BinaryTreeNode<T> parent)
         {
-            var comparison = Compare(value, current);
+            var comparison = value.CompareTo(current.Value);
 
             while (comparison != 0)
             {
@@ -255,15 +259,10 @@ namespace Graphyte
 
                 if (current is null)
                     return current;
-                else comparison = Compare(value, current);
+                else comparison = value.CompareTo(current.Value);
             }
 
             return current;
-        }
-
-        private int Compare(int value, BinaryTreeNode node)
-        {
-            return value - node.Value;
         }
     }
 }

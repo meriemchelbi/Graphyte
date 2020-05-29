@@ -1,43 +1,44 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Graphyte
 {
-    public class Graph<T, TNode> where TNode : Node<T>
+    public class Graph<T> where T : IComparable<T>
     {
-        public List<TNode> Nodes
+        public List<Node<T>> Nodes
         {
             get { return _nodes; }
             private set { }
         }
 
-        protected List<TNode> _nodes;
+        protected List<Node<T>> _nodes;
 
         public Graph()
         {
-            _nodes = new List<TNode>();
+            _nodes = new List<Node<T>>();
         }
 
-        public void AddNode(TNode node)
+        public void AddNode(Node<T> node)
         {
             _nodes.Add(node);
         }
 
-        public void AddNodes(params TNode[] nodes)
+        public void AddNodes(params Node<T>[] nodes)
         {
             _nodes.AddRange(nodes);
         }
 
-        public TNode FindNode(T value)
+        public Node<T> FindNode(T value)
         {
             return _nodes.Where(n => n.Value.Equals(value)).First();
         }
 
         // TODO: try implementing without having to traverse the entire tree to the root.
-        public int CountShortestDistance(TNode origin, TNode destination)
+        public int CountShortestDistance(Node<T> origin, Node<T> destination)
         {
-            var originParents = new List<TNode>();
-            var destinationParents = new List<TNode>();
+            var originParents = new List<Node<T>>();
+            var destinationParents = new List<Node<T>>();
 
             FindNodeParents(origin, originParents);
             FindNodeParents(destination, destinationParents);
@@ -47,7 +48,7 @@ namespace Graphyte
             return originParents.IndexOf(mutualParent) + destinationParents.IndexOf(mutualParent);
         }
 
-        private List<TNode> FindNodeParents(TNode child, List<TNode> result)
+        private List<Node<T>> FindNodeParents(Node<T> child, List<Node<T>> result)
         {
             foreach (var node in _nodes)
             {

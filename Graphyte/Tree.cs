@@ -1,15 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Graphyte
 {
-    public class Tree<T, TNode> : Graph<T, TNode> where TNode: Node<T>
+    public class Tree<T> : Graph<T> where T : IComparable<T>
     {
-        public TNode Root { get; set; }
+        public Node<T> Root { get; set; }
 
-        public Tree(TNode root) : base()
+        public Tree(Node<T> root) : base()
         {
             Root = root;
-            _nodes = new List<TNode> { root };
+            _nodes = new List<Node<T>> { root };
         }
     }
 }
