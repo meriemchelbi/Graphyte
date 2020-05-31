@@ -2,14 +2,8 @@
 
 namespace Graphyte
 {
-    public class BinarySearchTree<T> : Tree<T> where T : IComparable<T>
+    public class BinarySearchTree<T> : Tree<T, BinaryTreeNode<T>> where T : IComparable<T>
     {
-        public BinarySearchTree<T> Tree { get; set; }
-        public BinaryTreeNode<T> Root
-        {
-            get { return base.Root as BinaryTreeNode<T>; }
-        }
-
         public BinarySearchTree(BinaryTreeNode<T> root) : base(root)
         {
         }
@@ -33,51 +27,51 @@ namespace Graphyte
             var position = toRemove.CompareTo(parent); 
 
             // Case 1: if toRemove has no right child replace with leftChild
-            if (toRemove.RightChild is null)
+            if (toRemove.GetRightChild() is null)
             {
                 if (position < 0)
                 {
-                    parent.LeftChild = toRemove.LeftChild; // replace parent left child with left child of the node you want to remove;
+                    parent.SetLeftChild(toRemove.GetLeftChild()); // replace parent left child with left child of the node you want to remove;
                 }
                 else if (position > 0)
                 {
-                    parent.RightChild = toRemove.LeftChild; // replace parent right child with left child of the node you want to remove;
+                    parent.SetRightChild(toRemove.GetLeftChild()); // replace parent right child with left child of the node you want to remove;
                 }
                 else
                     throw new Exception("Current node is the same as its parent... You've got a bug! (or a single node tree)");
             }
 
             // Case 2: if toRemove right child has no left child replace with rightChild
-            else if (toRemove.RightChild.LeftChild is null)
+            else if (toRemove.GetRightChild().GetLeftChild() is null)
             {
                 if (position < 0)
                 {
-                    parent.LeftChild = toRemove.RightChild; // replace parent right child with left child of the node you want to remove;
-                    parent.LeftChild.LeftChild = toRemove.LeftChild ?? null;
+                    parent.SetLeftChild(toRemove.GetRightChild()); // replace parent right child with left child of the node you want to remove;
+                    parent.GetLeftChild().SetLeftChild(toRemove.GetLeftChild() ?? null);
                 }
                 else if (position > 0)
                 {
-                    parent.RightChild = toRemove.RightChild; // replace parent right child with right child of the node you want to remove;
-                    parent.RightChild.LeftChild = toRemove.LeftChild ?? null;
+                    parent.SetRightChild(toRemove.GetRightChild()); // replace parent right child with right child of the node you want to remove;
+                    parent.GetRightChild().SetLeftChild(toRemove.GetLeftChild() ?? null);
                 }
                 else
                     throw new Exception("Current node is the same as its parent... You've got a bug! (or a single node tree)");
             }
 
             // Case 3: if toRemove right child has left child replace with toRemove.rightChild's leftmost descendant
-            else if (toRemove.RightChild.LeftChild != null)
+            else if (toRemove.GetRightChild().GetLeftChild() != null)
             {
                 if (position < 0)
                 {
-                    parent.LeftChild = FindLeftmostDescendant(toRemove.RightChild);
-                    parent.LeftChild.LeftChild = toRemove.LeftChild ?? null;
-                    parent.LeftChild.RightChild = toRemove.RightChild ?? null;
+                    parent.SetLeftChild(FindLeftmostDescendant(toRemove.GetRightChild()));
+                    parent.GetLeftChild().SetLeftChild(toRemove.GetLeftChild() ?? null);
+                    parent.GetLeftChild().SetRightChild(toRemove.GetRightChild() ?? null);
                 }
                 else if (position > 0)
                 {
-                    parent.RightChild = FindLeftmostDescendant(toRemove.RightChild);
-                    parent.RightChild.LeftChild = toRemove.LeftChild ?? null;
-                    parent.RightChild.RightChild = toRemove.RightChild ?? null;
+                    parent.SetRightChild(FindLeftmostDescendant(toRemove.GetRightChild()));
+                    parent.GetRightChild().SetLeftChild(toRemove.GetLeftChild() ?? null);
+                    parent.GetRightChild().SetRightChild(toRemove.GetRightChild() ?? null);
                 }
                 else
                     throw new Exception("Current node is the same as its parent... You've got a bug! (or a single node tree)");
@@ -93,25 +87,25 @@ namespace Graphyte
 
         public BinaryTreeNode<T> FindSmallest()
         {
-            return TryGetLeftChild(Root);
+            return GetLeftmostChild(Root);
         }
 
         public BinaryTreeNode<T> FindLargest()
         {
-            return TryGetRightChild(Root);
+            return GetRightmostChild(Root);
         }
         
-        public void TryInsert(T value, BinaryTreeNode<T> node)
+        public void TryInsert(T value, BinaryTreeNode<T> startNode)
         {
-            if (node is null)
+            if (startNode is null)
                 throw new NullReferenceException("Node is null!");
 
-            BinaryTreeNode<T> current = node;
-            BinaryTreeNode<T> parent= null;
+            BinaryTreeNode<T> current = startNode;
+            BinaryTreeNode<T> parent = null;
 
             while (current != null)
             {
-                var comparison = node.Value.CompareTo(value);
+                var comparison = value.CompareTo(current.Value);
 
                 if (comparison == 0)
                     throw new Exception("There is already a node with this value in the tree. Go climb some other tree");
@@ -119,32 +113,28 @@ namespace Graphyte
                 if (comparison < 0)
                 {
                     parent = current;
-                    current = current.LeftChild;
+                    current = current.GetLeftChild();
                 }
 
                 else if (comparison > 0)
                 {
                     parent = current;
-                    current = current.RightChild;
+                    current = current.GetRightChild();
                 }
             }
 
-            if (parent == null)
-            {
-                Root = node;
-            }
+            var relativeToParent = value.CompareTo(parent.Value);
 
-            var relativeToParent = node.CompareTo(parent);
             if (relativeToParent < 0)
             {
-                parent.LeftChild = new BinaryTreeNode<T>(value);
-                _nodes.Add(parent.LeftChild);
+                parent.SetLeftChild(new BinaryTreeNode<T>(value));
+                _nodes.Add(parent.GetLeftChild());
                 return;
             }
             else if (relativeToParent > 0)
             {
-                parent.RightChild = new BinaryTreeNode<T>(value);
-                _nodes.Add(parent.RightChild);
+                parent.SetRightChild(new BinaryTreeNode<T>(value));
+                _nodes.Add(parent.GetRightChild());
                 return;
             }
         }
@@ -159,12 +149,12 @@ namespace Graphyte
             }
             if (value.CompareTo(node.Value) < 0)
             {
-                node = node.LeftChild;
+                node = node.GetLeftChild();
                 return TryMatchRecursive(value, node);
             }
             if (value.CompareTo(node.Value) > 0)
             {
-                node = node.RightChild;
+                node = node.GetRightChild();
                 return TryMatchRecursive(value, node);
             }
             else
@@ -173,22 +163,22 @@ namespace Graphyte
             }
         }
 
-        private BinaryTreeNode<T> TryGetLeftChild(BinaryTreeNode<T> node)
+        private BinaryTreeNode<T> GetLeftmostChild(BinaryTreeNode<T> node)
         {
             if (node is null)
                 throw new NullReferenceException("Node is null!");
-            if (node.LeftChild is null)
+            if (node.GetLeftChild() is null)
                 return node;
-            else return TryGetLeftChild(node.LeftChild);
+            else return GetLeftmostChild(node.GetLeftChild());
         }
 
-        private BinaryTreeNode<T> TryGetRightChild(BinaryTreeNode<T> node)
+        private BinaryTreeNode<T> GetRightmostChild(BinaryTreeNode<T> node)
         {
             if (node is null)
                 throw new NullReferenceException("Node is null!");
-            if (node.RightChild is null)
+            if (node.GetRightChild() is null)
                 return node;
-            else return TryGetRightChild(node.RightChild);
+            else return GetRightmostChild(node.GetRightChild());
         }
 
         private BinaryTreeNode<T> FindLeftmostDescendant(BinaryTreeNode<T> node)
@@ -197,10 +187,9 @@ namespace Graphyte
 
             while (result == null)
             {
-                if (node.LeftChild != null)
-                {
-                    node = node.LeftChild;
-                }
+                if (node.GetLeftChild() != null)
+                    node = node.GetLeftChild();
+                
                 else result = node;
             }
 
@@ -217,26 +206,26 @@ namespace Graphyte
 
             if (value.CompareTo(node.Value) < 0)
             {
-                if (node.LeftChild is null)
+                if (node.GetRightChild() is null)
                 {
-                    node.LeftChild = new BinaryTreeNode<T>(value);
-                    _nodes.Add(node.LeftChild);
+                    node.SetLeftChild(new BinaryTreeNode<T>(value));
+                    _nodes.Add(node.GetLeftChild());
                     return;
                 }
                 else
-                    TryInsertRecursive(value, node.LeftChild);
+                    TryInsertRecursive(value, node.GetLeftChild());
             }
 
             if (value.CompareTo(node.Value) > 0)
             {
-                if (node.RightChild is null)
+                if (node.GetRightChild() is null)
                 {
-                    node.RightChild = new BinaryTreeNode<T>(value);
-                    _nodes.Add(node.RightChild);
+                    node.SetRightChild(new BinaryTreeNode<T>(value));
+                    _nodes.Add(node.GetRightChild());
                     return;
                 }
                 else
-                    TryInsertRecursive(value, node.RightChild);
+                    TryInsertRecursive(value, node.GetRightChild());
             }
         }
 
@@ -249,12 +238,12 @@ namespace Graphyte
                 if (comparison > 0) // value is bigger than current node search right subtree
                 {
                     parent = current;
-                    current = current.RightChild;
+                    current = current.GetRightChild();
                 }
                 else if (comparison < 0) // value is smaller than current node search left subtree
                 {
                     parent = current;
-                    current = current.LeftChild;
+                    current = current.GetLeftChild();
                 }
 
                 if (current is null)

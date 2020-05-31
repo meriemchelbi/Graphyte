@@ -25,7 +25,7 @@ namespace GraphyteTests
             var BodyL = new Node<string>("LKK");
             var COM = new Node<string>("COM");
 
-            var galaxy = new Tree<string>(COM);
+            var galaxy = new Tree<string, Node<string>>(COM);
                         
             BodyB.Neighbours.Add(BodyC);
             BodyB.Neighbours.Add(BodyG);
@@ -72,7 +72,7 @@ namespace GraphyteTests
             var SAN = new Node<string>("SAN");
             var YOU = new Node<string>("YOU");
 
-            var galaxy = new Tree<string>(BodyD);
+            var galaxy = new Tree<string, Node<string>>(BodyD);
 
             BodyD.Neighbours.Add(BodyE);
             BodyD.Neighbours.Add(BodyI);

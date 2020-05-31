@@ -3,14 +3,14 @@ using System.Collections.Generic;
 
 namespace Graphyte
 {
-    public class Tree<T> : Graph<T> where T : IComparable<T>
+    public class Tree<T, TNode> : Graph<T, TNode> where TNode : Node<T> where T : IComparable<T>
     {
-        public Node<T> Root { get; set; }
+        public TNode Root { get; set; }
 
-        public Tree(Node<T> root) : base()
+        public Tree(TNode root) : base()
         {
             Root = root;
-            _nodes = new List<Node<T>> { root };
+            _nodes = new List<TNode> { root };
         }
     }
 }
