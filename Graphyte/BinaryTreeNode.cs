@@ -25,13 +25,15 @@ namespace Graphyte
 
         public void SetRightChild(BinaryTreeNode<T> target)
         {
+            if (target is null)
+            {
+                RemoveRightChild();
+                return;
+            }
             var existingRightChild = Neighbours.Cast<BinaryTreeNode<T>>().FirstOrDefault(n => n.IsRightChild);
             
             if (existingRightChild != null)
-            {
-                Neighbours.Remove(existingRightChild);
-                existingRightChild.IsRightChild = false;
-            }
+                RemoveRightChild();
 
             target.IsRightChild = true;
             target.IsLeftChild = false;
@@ -40,13 +42,16 @@ namespace Graphyte
         
         public void SetLeftChild(BinaryTreeNode<T> target)
         {
+            if (target is null)
+            {
+                RemoveLeftChild();
+                return;
+            }
+
             var existingLeftChild = Neighbours.Cast<BinaryTreeNode<T>>().FirstOrDefault(n => n.IsLeftChild);
             
             if (existingLeftChild != null)
-            {
-                Neighbours.Remove(existingLeftChild);
-                existingLeftChild.IsLeftChild = false;
-            }
+                RemoveLeftChild();
 
             target.IsLeftChild = true;
             target.IsRightChild = false;
@@ -56,15 +61,15 @@ namespace Graphyte
         public void RemoveLeftChild()
         {
             var leftChild = Neighbours.Cast<BinaryTreeNode<T>>().FirstOrDefault(n => n.IsLeftChild);
-            Neighbours.Remove(leftChild);
             leftChild.IsLeftChild = false;
+            Neighbours.Remove(leftChild);
         }
 
-        public void RemoveRightChild(BinaryTreeNode<T> target)
+        public void RemoveRightChild()
         {
             var rightChild = Neighbours.Cast<BinaryTreeNode<T>>().FirstOrDefault(n => n.IsRightChild);
-            Neighbours.Remove(rightChild);
             rightChild.IsRightChild = false;
+            Neighbours.Remove(rightChild);
         }
 
         public int CompareTo(BinaryTreeNode<T> other)
