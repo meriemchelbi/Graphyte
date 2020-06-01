@@ -83,7 +83,6 @@ namespace GraphyteTests
             _tree.DeleteByValue(20);
 
             _tree.Nodes.Should().BeEquivalentTo(expectedNodes);
-            _sutNode15.GetRightChild().Value.Should().Be(18);
         }
 
         [Fact]
@@ -100,8 +99,6 @@ namespace GraphyteTests
             _tree.DeleteByValue(15);
 
             _tree.Nodes.Should().BeEquivalentTo(expectedNodes);
-            _tree.Root.GetRightChild().Value.Should().Be(20);
-            _tree.Root.GetRightChild().GetLeftChild().Value.Should().Be(8);
         }
         
         [Fact]
@@ -132,18 +129,13 @@ namespace GraphyteTests
 
             // assert
             _tree.Nodes.Should().BeEquivalentTo(expectedNodes);
-            _tree.Root.GetRightChild().Value.Should().Be(16);
-            _tree.Root.GetRightChild().GetLeftChild().Value.Should().Be(8);
-            _tree.Root.GetRightChild().GetRightChild().Value.Should().Be(20);
         }
 
         // TODO implement a find by value that uses Linq to traverse the _nodes list and benchmark vs this one
         [Fact]
         public void FindByValueReturnsCorrectNode()
         {
-            var tree = new BinarySearchTree<int>(_root);
-
-            var result = tree.FindByValueRecursive(15);
+            var result = _tree.FindByValueRecursive(15);
 
             result.Should().Be(_node15);
         }
@@ -151,36 +143,18 @@ namespace GraphyteTests
         [Fact]
         public void FindSmallestReturnsNodeWithSmallestValue()
         {
-            var tree = new BinarySearchTree<int>(_root);
+            var result = _tree.FindSmallest();
 
-            var result = tree.FindSmallest();
-
-            result.Should().Be(_node4);
+            result.Should().Be(_sutNode4);
         }
 
         [Fact]
         public void FindLargestReturnsNodeWithLargestValue()
         {
-            var root = new BinaryTreeNode<int>(7);
-            var node4 = new BinaryTreeNode<int>(4);
-            var node5 = new BinaryTreeNode<int>(5);
-            var node8 = new BinaryTreeNode<int>(8);
-            var node15 = new BinaryTreeNode<int>(15);
-            var node20 = new BinaryTreeNode<int>(20);
+            var result = _tree.FindLargest();
 
-            root.SetLeftChild(node4);
-            root.SetRightChild(node15);
-            node15.SetLeftChild(node8);
-            node4.SetRightChild(node5);
-            node15.SetRightChild(node20);
-
-            var tree = new BinarySearchTree<int>(root);
-
-            var result = tree.FindLargest();
-
-            result.Should().Be(node20);
+            result.Should().Be(_sutNode20);
         }
-
 
         private void ConstructBaseTestTree()
         {
