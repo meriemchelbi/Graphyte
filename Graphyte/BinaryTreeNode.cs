@@ -53,6 +53,20 @@ namespace Graphyte
             Neighbours.Add(target);
         }
 
+        public void RemoveLeftChild()
+        {
+            var leftChild = Neighbours.Cast<BinaryTreeNode<T>>().FirstOrDefault(n => n.IsLeftChild);
+            Neighbours.Remove(leftChild);
+            leftChild.IsLeftChild = false;
+        }
+
+        public void RemoveRightChild(BinaryTreeNode<T> target)
+        {
+            var rightChild = Neighbours.Cast<BinaryTreeNode<T>>().FirstOrDefault(n => n.IsRightChild);
+            Neighbours.Remove(rightChild);
+            rightChild.IsRightChild = false;
+        }
+
         public int CompareTo(BinaryTreeNode<T> other)
         {
             return Value.CompareTo(other.Value);

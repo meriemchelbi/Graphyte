@@ -89,6 +89,9 @@ namespace GraphyteTests
         [Fact]
         public void Case2_DeleteByValue_ReplacesNodeWithRightChild_IfRightChildHasNoLeftChild()
         {
+            _root.SetRightChild(_node20);
+            _node20.SetLeftChild(_node8);
+
             var expectedNodes = new List<Node<int>>
             {
                 _root, _node4, _node5, _node8, _node20,
@@ -104,23 +107,30 @@ namespace GraphyteTests
         [Fact]
         public void Case3_DeleteByValue_ReplacesNodeWithRightChildsLeftmostDescendant_IfRightChildHasLeftChild()
         {
+            // arrange
             var node18 = new BinaryTreeNode<int>(18);
             var node16 = new BinaryTreeNode<int>(16);
-
+            _root.SetRightChild(node16);
+            node16.SetLeftChild(_node8);
+            node16.SetRightChild(_node20);
             _node20.SetLeftChild(node18);
-            node18.SetLeftChild(node16);
 
             var expectedNodes = new List<Node<int>>
             {
                 _root, _node4, _node5, _node8, _node20, node18, node16
             };
 
-            _tree.Nodes.Add(node18);
-            _tree.Nodes.Add(node16);
-            _sutNode20.SetLeftChild(node18);
+            var sutNode18 = new BinaryTreeNode<int>(18);
+            var sutNode16 = new BinaryTreeNode<int>(16);
+            _sutNode20.SetLeftChild(sutNode18);
+            sutNode18.SetLeftChild(sutNode16);
+            _tree.Nodes.Add(sutNode18);
+            _tree.Nodes.Add(sutNode16);
 
+            // act
             _tree.DeleteByValue(15);
 
+            // assert
             _tree.Nodes.Should().BeEquivalentTo(expectedNodes);
             _tree.Root.GetRightChild().Value.Should().Be(16);
             _tree.Root.GetRightChild().GetLeftChild().Value.Should().Be(8);
@@ -184,8 +194,8 @@ namespace GraphyteTests
             _root.SetLeftChild(_node4);
             _root.SetRightChild(_node15);
             _node15.SetLeftChild(_node8);
-            _node4.SetRightChild(_node5);
             _node15.SetRightChild(_node20);
+            _node4.SetRightChild(_node5);
 
             _sutRoot = new BinaryTreeNode<int>(7);
             _sutNode4 = new BinaryTreeNode<int>(4);

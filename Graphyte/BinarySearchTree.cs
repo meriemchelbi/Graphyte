@@ -69,7 +69,9 @@ namespace Graphyte
                 }
                 else if (position > 0)
                 {
-                    parent.SetRightChild(FindLeftmostDescendant(toRemove.GetRightChild()));
+                    var replacement = FindLeftmostDescendant(toRemove.GetRightChild());
+                    FindParentNode(replacement).RemoveLeftChild();
+                    parent.SetRightChild(replacement);
                     parent.GetRightChild().SetLeftChild(toRemove.GetLeftChild() ?? null);
                     parent.GetRightChild().SetRightChild(toRemove.GetRightChild() ?? null);
                 }
@@ -79,6 +81,7 @@ namespace Graphyte
 
             _nodes.Remove(toRemove);
         }
+
 
         public BinaryTreeNode<T> FindByValueRecursive(T value)
         {
@@ -252,6 +255,34 @@ namespace Graphyte
             }
 
             return current;
+        }
+
+
+        private BinaryTreeNode<T> FindParentNode(BinaryTreeNode<T> node)
+        {
+            var current = Root;
+            var comparison = node.CompareTo(current);
+            BinaryTreeNode<T> parent = null;
+
+            while (comparison != 0)
+            {
+                if (comparison > 0) // value is bigger than current node search right subtree
+                {
+                    parent = current;
+                    current = current.GetRightChild();
+                }
+                else if (comparison < 0) // value is smaller than current node search left subtree
+                {
+                    parent = current;
+                    current = current.GetLeftChild();
+                }
+
+                if (current is null)
+                    return current;
+                else comparison = node.CompareTo(current);
+            }
+
+            return parent;
         }
     }
 }
