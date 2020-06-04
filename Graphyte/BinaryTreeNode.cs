@@ -7,40 +7,26 @@ namespace Graphyte
 {
     public class BinaryTreeNode<T> : Node<T> where T: IComparable<T>
     {
-        private BinaryTreeNode<T> _leftChild;
-
         public BinaryTreeNode<T> LeftChild
         {
-            get { return GetLeftChild(); }
+            get { return _leftChild; }
             set { SetLeftChild(value); }
         }
-        
-        private BinaryTreeNode<T> _rightChild;
-
         public BinaryTreeNode<T> RightChild
         {
-            get { return GetRightChild(); }
+            get { return _rightChild; }
             set { SetRightChild(value); }
         }
 
+        private BinaryTreeNode<T> _leftChild;
+        private BinaryTreeNode<T> _rightChild;
         private bool IsLeftChild { get; set; }
         private bool IsRightChild { get; set; }
+        
         public BinaryTreeNode(T value) : base(value)
         {
         }
-
-        public BinaryTreeNode<T> GetRightChild()
-        {
-            return _rightChild;
-            // return Neighbours.Cast<BinaryTreeNode<T>>().FirstOrDefault(n => n.IsRightChild);
-        }
         
-        public BinaryTreeNode<T> GetLeftChild()
-        {
-            return _leftChild;
-            //return Neighbours.Cast<BinaryTreeNode<T>>().FirstOrDefault(n => n.IsLeftChild);
-        }
-
         private void SetRightChild(BinaryTreeNode<T> target)
         {
             if (target is null)
