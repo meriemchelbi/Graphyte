@@ -26,6 +26,20 @@ namespace Graphyte
         public BinaryTreeNode(T value) : base(value)
         {
         }
+
+        public void RemoveLeftChild()
+        {
+            var leftChild = Neighbours.Cast<BinaryTreeNode<T>>().FirstOrDefault(n => n.IsLeftChild);
+            leftChild.IsLeftChild = false;
+            Neighbours.Remove(leftChild);
+        }
+
+        public void RemoveRightChild()
+        {
+            var rightChild = Neighbours.Cast<BinaryTreeNode<T>>().FirstOrDefault(n => n.IsRightChild);
+            rightChild.IsRightChild = false;
+            Neighbours.Remove(rightChild);
+        }
         
         private void SetRightChild(BinaryTreeNode<T> target)
         {
@@ -62,25 +76,6 @@ namespace Graphyte
             target.IsRightChild = false;
             Neighbours.Add(target);
             _leftChild = target;
-        }
-
-        public void RemoveLeftChild()
-        {
-            var leftChild = Neighbours.Cast<BinaryTreeNode<T>>().FirstOrDefault(n => n.IsLeftChild);
-            leftChild.IsLeftChild = false;
-            Neighbours.Remove(leftChild);
-        }
-
-        public void RemoveRightChild()
-        {
-            var rightChild = Neighbours.Cast<BinaryTreeNode<T>>().FirstOrDefault(n => n.IsRightChild);
-            rightChild.IsRightChild = false;
-            Neighbours.Remove(rightChild);
-        }
-
-        public int CompareTo(BinaryTreeNode<T> other)
-        {
-            return Value.CompareTo(other.Value);
         }
     }
 }
