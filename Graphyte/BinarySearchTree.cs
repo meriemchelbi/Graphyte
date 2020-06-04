@@ -31,11 +31,11 @@ namespace Graphyte
             {
                 if (position < 0)
                 {
-                    parent.SetLeftChild(toRemove.GetLeftChild()); // replace parent left child with left child of the node you want to remove;
+                    parent.LeftChild = toRemove.LeftChild; // replace parent left child with left child of the node you want to remove;
                 }
                 else if (position > 0)
                 {
-                    parent.SetRightChild(toRemove.GetLeftChild()); // replace parent right child with left child of the node you want to remove;
+                    parent.RightChild = toRemove.LeftChild; // replace parent right child with left child of the node you want to remove;
                 }
                 else
                     throw new Exception("Current node is the same as its parent... You've got a bug! (or a single node tree)");
@@ -46,13 +46,13 @@ namespace Graphyte
             {
                 if (position < 0)
                 {
-                    parent.SetLeftChild(toRemove.GetRightChild()); // replace parent right child with left child of the node you want to remove;
-                    parent.GetLeftChild().SetLeftChild(toRemove.GetLeftChild() ?? null);
+                    parent.LeftChild = toRemove.RightChild; // replace parent right child with left child of the node you want to remove;
+                    parent.LeftChild.LeftChild = toRemove.LeftChild ?? null;
                 }
                 else if (position > 0)
                 {
-                    parent.SetRightChild(toRemove.GetRightChild()); // replace parent right child with right child of the node you want to remove;
-                    parent.GetRightChild().SetLeftChild(toRemove.GetLeftChild() ?? null);
+                    parent.RightChild = toRemove.RightChild; // replace parent right child with right child of the node you want to remove;
+                    parent.RightChild.LeftChild = toRemove.LeftChild ?? null;
                 }
                 else
                     throw new Exception("Current node is the same as its parent... You've got a bug! (or a single node tree)");
@@ -63,17 +63,17 @@ namespace Graphyte
             {
                 if (position < 0)
                 {
-                    parent.SetLeftChild(FindLeftmostDescendant(toRemove.GetRightChild()));
-                    parent.GetLeftChild().SetLeftChild(toRemove.GetLeftChild() ?? null);
-                    parent.GetLeftChild().SetRightChild(toRemove.GetRightChild() ?? null);
+                    parent.LeftChild = FindLeftmostDescendant(toRemove.LeftChild);
+                    parent.LeftChild.LeftChild = toRemove.LeftChild ?? null;
+                    parent.LeftChild.RightChild = toRemove.RightChild ?? null;
                 }
                 else if (position > 0)
                 {
                     var replacement = FindLeftmostDescendant(toRemove.GetRightChild());
                     FindParentNode(replacement).RemoveLeftChild();
-                    parent.SetRightChild(replacement);
-                    parent.GetRightChild().SetLeftChild(toRemove.GetLeftChild() ?? null);
-                    parent.GetRightChild().SetRightChild(toRemove.GetRightChild() ?? null);
+                    parent.RightChild = replacement;
+                    parent.RightChild.LeftChild = toRemove.LeftChild ?? null;
+                    parent.RightChild.RightChild = toRemove.RightChild ?? null;
                 }
                 else
                     throw new Exception("Current node is the same as its parent... You've got a bug! (or a single node tree)");
@@ -130,13 +130,13 @@ namespace Graphyte
 
             if (relativeToParent < 0)
             {
-                parent.SetLeftChild(new BinaryTreeNode<T>(value));
+                parent.LeftChild = new BinaryTreeNode<T>(value);
                 _nodes.Add(parent.GetLeftChild());
                 return;
             }
             else if (relativeToParent > 0)
             {
-                parent.SetRightChild(new BinaryTreeNode<T>(value));
+                parent.RightChild = new BinaryTreeNode<T>(value);
                 _nodes.Add(parent.GetRightChild());
                 return;
             }
@@ -211,7 +211,7 @@ namespace Graphyte
             {
                 if (node.GetRightChild() is null)
                 {
-                    node.SetLeftChild(new BinaryTreeNode<T>(value));
+                    node.LeftChild = new BinaryTreeNode<T>(value);
                     _nodes.Add(node.GetLeftChild());
                     return;
                 }
@@ -223,7 +223,7 @@ namespace Graphyte
             {
                 if (node.GetRightChild() is null)
                 {
-                    node.SetRightChild(new BinaryTreeNode<T>(value));
+                    node.RightChild = new BinaryTreeNode<T>(value);
                     _nodes.Add(node.GetRightChild());
                     return;
                 }

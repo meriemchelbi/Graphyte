@@ -7,23 +7,41 @@ namespace Graphyte
 {
     public class BinaryTreeNode<T> : Node<T> where T: IComparable<T>
     {
-        public bool IsLeftChild { get; set; }
-        public bool IsRightChild { get; set; }
+        private BinaryTreeNode<T> _leftChild;
+
+        public BinaryTreeNode<T> LeftChild
+        {
+            get { return GetLeftChild(); }
+            set { SetLeftChild(value); }
+        }
+        
+        private BinaryTreeNode<T> _rightChild;
+
+        public BinaryTreeNode<T> RightChild
+        {
+            get { return GetRightChild(); }
+            set { SetRightChild(value); }
+        }
+
+        private bool IsLeftChild { get; set; }
+        private bool IsRightChild { get; set; }
         public BinaryTreeNode(T value) : base(value)
         {
         }
 
         public BinaryTreeNode<T> GetRightChild()
         {
-            return Neighbours.Cast<BinaryTreeNode<T>>().FirstOrDefault(n => n.IsRightChild);
+            return _rightChild;
+            // return Neighbours.Cast<BinaryTreeNode<T>>().FirstOrDefault(n => n.IsRightChild);
         }
         
         public BinaryTreeNode<T> GetLeftChild()
         {
-            return Neighbours.Cast<BinaryTreeNode<T>>().FirstOrDefault(n => n.IsLeftChild);
+            return _leftChild;
+            //return Neighbours.Cast<BinaryTreeNode<T>>().FirstOrDefault(n => n.IsLeftChild);
         }
 
-        public void SetRightChild(BinaryTreeNode<T> target)
+        private void SetRightChild(BinaryTreeNode<T> target)
         {
             if (target is null)
             {
@@ -38,9 +56,10 @@ namespace Graphyte
             target.IsRightChild = true;
             target.IsLeftChild = false;
             Neighbours.Add(target);
+            _rightChild = target;
         }
         
-        public void SetLeftChild(BinaryTreeNode<T> target)
+        private void SetLeftChild(BinaryTreeNode<T> target)
         {
             if (target is null)
             {
@@ -56,6 +75,7 @@ namespace Graphyte
             target.IsLeftChild = true;
             target.IsRightChild = false;
             Neighbours.Add(target);
+            _leftChild = target;
         }
 
         public void RemoveLeftChild()

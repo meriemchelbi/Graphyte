@@ -31,10 +31,10 @@ namespace GraphyteBenchmarks
             var node8 = new BinaryTreeNode<int>(8);
             var node15 = new BinaryTreeNode<int>(15);
 
-            root.SetLeftChild(node4);
-            root.SetRightChild(node15);
-            node15.SetLeftChild(node8);
-            node4.SetRightChild(node5);
+            root.LeftChild = node4;
+            root.RightChild = node15;
+            node15.LeftChild = node8;
+            node4.RightChild = node5;
 
             return new BinarySearchTree<int>(root);
         }

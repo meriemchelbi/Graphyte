@@ -70,7 +70,7 @@ namespace GraphyteTests
         public void Case1_DeleteByValue_ReplacesNodeWithLeftChild_IfHasNoRightChild()
         {
             var node18 = new BinaryTreeNode<int>(18);
-            _node15.SetRightChild(node18);
+            _node15.RightChild = node18;
 
             var expectedNodes = new List<Node<int>>
             {
@@ -78,7 +78,7 @@ namespace GraphyteTests
             };
 
             _tree.Nodes.Add(node18);
-            _sutNode20.SetLeftChild(node18);
+            _sutNode20.LeftChild = node18;
 
             _tree.DeleteByValue(20);
 
@@ -88,8 +88,8 @@ namespace GraphyteTests
         [Fact]
         public void Case2_DeleteByValue_ReplacesNodeWithRightChild_IfRightChildHasNoLeftChild()
         {
-            _root.SetRightChild(_node20);
-            _node20.SetLeftChild(_node8);
+            _root.RightChild = _node20;
+            _node20.LeftChild = _node8;
 
             var expectedNodes = new List<Node<int>>
             {
@@ -107,10 +107,10 @@ namespace GraphyteTests
             // arrange
             var node18 = new BinaryTreeNode<int>(18);
             var node16 = new BinaryTreeNode<int>(16);
-            _root.SetRightChild(node16);
-            node16.SetLeftChild(_node8);
-            node16.SetRightChild(_node20);
-            _node20.SetLeftChild(node18);
+            _root.RightChild = node16;
+            node16.LeftChild = _node8;
+            node16.RightChild = _node20;
+            _node20.LeftChild = node18;
 
             var expectedNodes = new List<Node<int>>
             {
@@ -119,8 +119,8 @@ namespace GraphyteTests
 
             var sutNode18 = new BinaryTreeNode<int>(18);
             var sutNode16 = new BinaryTreeNode<int>(16);
-            _sutNode20.SetLeftChild(sutNode18);
-            sutNode18.SetLeftChild(sutNode16);
+            _sutNode20.LeftChild = sutNode18;
+            sutNode18.LeftChild = sutNode16;
             _tree.Nodes.Add(sutNode18);
             _tree.Nodes.Add(sutNode16);
 
@@ -165,11 +165,11 @@ namespace GraphyteTests
             _node15 = new BinaryTreeNode<int>(15);
             _node20 = new BinaryTreeNode<int>(20);
 
-            _root.SetLeftChild(_node4);
-            _root.SetRightChild(_node15);
-            _node15.SetLeftChild(_node8);
-            _node15.SetRightChild(_node20);
-            _node4.SetRightChild(_node5);
+            _root.LeftChild = _node4;
+            _root.RightChild = _node15;
+            _node15.LeftChild = _node8;
+            _node15.RightChild = _node20;
+            _node4.RightChild = _node5;
 
             _sutRoot = new BinaryTreeNode<int>(7);
             _sutNode4 = new BinaryTreeNode<int>(4);
@@ -181,11 +181,11 @@ namespace GraphyteTests
             _tree = new BinarySearchTree<int>(_sutRoot);
             _tree.AddNodes(_sutNode4, _sutNode5, _sutNode8, _sutNode15, _sutNode20);
 
-            _sutRoot.SetLeftChild(_sutNode4);
-            _sutRoot.SetRightChild(_sutNode15);
-            _sutNode15.SetLeftChild(_sutNode8);
-            _sutNode15.SetRightChild(_sutNode20);
-            _sutNode4.SetRightChild(_sutNode5);
+            _sutRoot.LeftChild = _sutNode4;
+            _sutRoot.RightChild = _sutNode15;
+            _sutNode15.LeftChild = _sutNode8;
+            _sutNode15.RightChild= _sutNode20;
+            _sutNode4.RightChild = _sutNode5;
         }
     }
 }
