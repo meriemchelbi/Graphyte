@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Graphyte
 {
@@ -30,15 +28,23 @@ namespace Graphyte
         public void RemoveLeftChild()
         {
             var leftChild = Neighbours.Cast<BinaryTreeNode<T>>().FirstOrDefault(n => n.IsLeftChild);
-            leftChild.IsLeftChild = false;
-            Neighbours.Remove(leftChild);
+            if (leftChild != null)
+            {
+                leftChild.IsLeftChild = false;
+                Neighbours.Remove(leftChild);
+                _leftChild = null;
+            }
         }
 
         public void RemoveRightChild()
         {
             var rightChild = Neighbours.Cast<BinaryTreeNode<T>>().FirstOrDefault(n => n.IsRightChild);
-            rightChild.IsRightChild = false;
-            Neighbours.Remove(rightChild);
+            if (rightChild != null)
+            {
+                rightChild.IsRightChild = false;
+                Neighbours.Remove(rightChild);
+                _rightChild = null;
+            }
         }
         
         private void SetRightChild(BinaryTreeNode<T> target)
@@ -48,6 +54,12 @@ namespace Graphyte
                 RemoveRightChild();
                 return;
             }
+
+            if (target.CompareTo(this) < 0)
+            {
+                throw new Exception("Value of right child cannot be smaller than value of node");
+            }
+
             var existingRightChild = Neighbours.Cast<BinaryTreeNode<T>>().FirstOrDefault(n => n.IsRightChild);
             
             if (existingRightChild != null)
@@ -65,6 +77,11 @@ namespace Graphyte
             {
                 RemoveLeftChild();
                 return;
+            }
+
+            if (target.CompareTo(this) > 0)
+            {
+                throw new Exception("Value of left child cannot be greater than value of node");
             }
 
             var existingLeftChild = Neighbours.Cast<BinaryTreeNode<T>>().FirstOrDefault(n => n.IsLeftChild);
