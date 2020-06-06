@@ -36,12 +36,11 @@ namespace GraphyteTests
             // how can I test it throws? No features for private getters
             var childNode = new BinaryTreeNode<int>(15);
             var parentNode = new BinaryTreeNode<int>(10);
-            try
-            {
-                parentNode.LeftChild = childNode;
-            }
-            catch (Exception) { }
+            
+            Action act = () => parentNode.LeftChild = childNode;
 
+            act.Should().Throw<Exception>()
+                        .WithMessage("Value of left child cannot be greater than value of node");
             parentNode.LeftChild.Should().BeNull();
         }
         
@@ -98,12 +97,11 @@ namespace GraphyteTests
             // how can I test it throws? No features for private getters
             var childNode = new BinaryTreeNode<int>(5);
             var parentNode = new BinaryTreeNode<int>(10);
-            try
-            {
-                parentNode.RightChild = childNode;
-            }
-            catch (Exception) { }
 
+            Action act = () => parentNode.RightChild = childNode;
+
+            act.Should().Throw<Exception>()
+                        .WithMessage("Value of right child cannot be smaller than value of node");
             parentNode.RightChild.Should().BeNull();
         }
         

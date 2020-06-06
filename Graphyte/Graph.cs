@@ -11,7 +11,6 @@ namespace Graphyte
             get { return _nodes; }
             private set { }
         }
-
         protected List<TNode> _nodes;
 
         public Graph()

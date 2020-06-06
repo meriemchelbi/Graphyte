@@ -27,7 +27,7 @@ namespace Graphyte
 
         public void RemoveLeftChild()
         {
-            var leftChild = Neighbours.Cast<BinaryTreeNode<T>>().FirstOrDefault(n => n.IsLeftChild);
+            var leftChild = Neighbours.Cast<BinaryTreeNode<T>>().SingleOrDefault(n => n.IsLeftChild);
             if (leftChild != null)
             {
                 leftChild.IsLeftChild = false;
@@ -38,7 +38,7 @@ namespace Graphyte
 
         public void RemoveRightChild()
         {
-            var rightChild = Neighbours.Cast<BinaryTreeNode<T>>().FirstOrDefault(n => n.IsRightChild);
+            var rightChild = Neighbours.Cast<BinaryTreeNode<T>>().SingleOrDefault(n => n.IsRightChild);
             if (rightChild != null)
             {
                 rightChild.IsRightChild = false;
